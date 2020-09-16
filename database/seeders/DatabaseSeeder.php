@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Tool;
+use App\Models\Work;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // User::factory(10)->create();
+        Tool::factory()->count(300)->create();
+        Work::factory()->count(100)->create();
     }
 }
