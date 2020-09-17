@@ -10,18 +10,8 @@ class Mechanic extends Model
 {
     use HasFactory, softDeletes;
 
-    public function work()
+    public function repairs()
     {
-        return $this->hasOne(Work::class);
-    }
-
-    public function workCar()
-    {
-        return $this->hasOneThrough(Car::class, Work::class);
-    }
-
-    public function workUser()
-    {
-        return $this->hasOneThrough(User::class, Work::class);
+        return $this->hasMany(Repair::class);
     }
 }

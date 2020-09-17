@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorksTable extends Migration
+class CreateRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,12 @@ class CreateWorksTable extends Migration
      */
     public function up()
     {
-        Schema::create('works', function (Blueprint $table) {
+        Schema::create('requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('car_id');
-            $table->foreignId('mechanic_id');
-            $table->string('name');
             $table->text('description')->nullable();
             $table->tinyInteger('status')->default(0);
-            $table->text('result')->nullable();
-            $table->integer('price')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -35,6 +31,6 @@ class CreateWorksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('works');
+        Schema::dropIfExists('requests');
     }
 }

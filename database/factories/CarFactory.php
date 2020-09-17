@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Car;
 use App\Models\User;
+use Carbon\Carbon;
 use Faker\Provider\Fakecar;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -33,7 +34,7 @@ class CarFactory extends Factory
             'model' => $this->faker->vehicleModel,
             'vin' => $this->faker->unique()->vin,
             'colour' => $this->faker->colorName,
-            'year' => $this->faker->biasedNumberBetween(1970,2020, 'sqrt'),
+            'year' => $this->faker->biasedNumberBetween(1970, Carbon::now()->year, 'sqrt'),
         ];
     }
 }

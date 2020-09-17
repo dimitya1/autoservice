@@ -10,8 +10,8 @@ class Tool extends Model
 {
     use HasFactory, softDeletes;
 
-    public function works()
+    public function repairs()
     {
-        return $this->belongsToMany(Work::class);
+        return $this->belongsToMany(Repair::class);
     }
 }

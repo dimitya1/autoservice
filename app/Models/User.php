@@ -44,8 +44,8 @@ class User extends Authenticatable
         return $this->hasMany(Car::class);
     }
 
-    public function works()
+    public function requests()
     {
-        return $this->hasMany(Work::class);
+        return $this->hasMany(Request::class);
     }
 }

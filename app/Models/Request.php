@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Car extends Model
+class Request extends Model
 {
     use HasFactory, softDeletes;
 
@@ -15,8 +15,18 @@ class Car extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function requests()
+    public function worklists()
     {
-        return $this->hasMany(Request::class);
+        return $this->belongsToMany(Worklist::class);
+    }
+
+    public function repairs()
+    {
+        return $this->hasMany(Repair::class);
+    }
+
+    public function car()
+    {
+        return $this->belongsTo(Car::class);
     }
 }

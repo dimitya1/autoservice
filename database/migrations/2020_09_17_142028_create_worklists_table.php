@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateToolWorkTable extends Migration
+class CreateWorklistsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateToolWorkTable extends Migration
      */
     public function up()
     {
-        Schema::create('tool_work', function (Blueprint $table) {
-            $table->foreignId('tool_id');
-            $table->foreignId('work_id');
+        Schema::create('worklists', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->integer('price');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +29,6 @@ class CreateToolWorkTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tool_work');
+        Schema::dropIfExists('worklists');
     }
 }
