@@ -34,7 +34,7 @@ class CarFactory extends Factory
             'model' => $this->faker->vehicleModel,
             'vin' => $this->faker->unique()->vin,
             'colour' => $this->faker->colorName,
-            'year' => $this->faker->biasedNumberBetween(1970, Carbon::now()->year, 'sqrt'),
+            'year' => $this->faker->biasedNumberBetween(1980, Carbon::now()->year, 'sqrt'),
         ];
     }
 }

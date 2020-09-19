@@ -15,7 +15,7 @@ class CreateRepairToolTable extends Migration
     {
         Schema::create('repair_tool', function (Blueprint $table) {
             $table->foreignId('tool_id');
-            $table->foreignId('work_id');
+            $table->foreignId('repair_id');
             $table->timestamps();
             $table->softDeletes();
         });
