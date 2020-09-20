@@ -24,7 +24,6 @@ class ToolFactory extends Factory
     public function definition()
     {
         $this->faker->addProvider(new \Faker\Provider\Fakecar($this->faker));
-        //$items = $this->faker->vehicleProperties;
 
         return [
             'name' => $this->faker->randomElement($this->faker->vehicleProperties) ?? $this->faker->realText(10),

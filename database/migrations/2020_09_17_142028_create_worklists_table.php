@@ -16,6 +16,7 @@ class CreateWorklistsTable extends Migration
         Schema::create('worklists', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('category');
             $table->integer('price');
             $table->timestamps();
             $table->softDeletes();

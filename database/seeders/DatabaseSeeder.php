@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $mechanics = Mechanic::factory()->count(10)->create();
-        $worklists = Worklist::factory()->count(100)->create();
+        $worklists = Worklist::factory()->count(156)->create();
         $tools = Tool::factory()->count(250)->create();
         $mechanicIds = $mechanics->pluck('id');
 
