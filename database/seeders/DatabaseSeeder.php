@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        User::factory(1)->create(['is_admin' => 1, 'email' => 'admin@email.com']);//Creating one admin
+
         $mechanics = Mechanic::factory()->count(10)->create();
         $worklists = Worklist::factory()->count(156)->create();
         $tools = Tool::factory()->count(250)->create();
