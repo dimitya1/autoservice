@@ -25,8 +25,8 @@ class RequestFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => self::factoryForModel(User::class),
-            'car_id' => self::factoryForModel(Car::class),
+            'user_id' => User::factory(),
+            'car_id' => Car::factory(),
             'description' => $this->faker->realText(150),
             'status' => rand(0, 1),
         ];

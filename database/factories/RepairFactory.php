@@ -25,8 +25,8 @@ class RepairFactory extends Factory
     public function definition()
     {
         return [
-            'request_id' => self::factoryForModel(Request::class),
-            'mechanic_id' => self::factoryForModel(Mechanic::class),
+            'request_id' => Request::factory(),
+            'mechanic_id' => Mechanic::factory(),
             'result' => $this->faker->realText(150),
             'status' => rand(0, 1),
         ];

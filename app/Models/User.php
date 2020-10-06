@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Request::class);
     }
+
+    public function repairs()
+    {
+        return $this->hasManyThrough(Repair::class, Request::class);
+    }
 }

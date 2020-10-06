@@ -17,7 +17,7 @@ class Repair extends Model
 
     public function tools()
     {
-        return $this->belongsToMany(Tool::class)->withTimestamps();
+        return $this->belongsToMany(Tool::class)->withPivot('used_quantity')->withTimestamps();
     }
 
     public function mechanic()

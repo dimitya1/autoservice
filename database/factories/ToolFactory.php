@@ -28,7 +28,7 @@ class ToolFactory extends Factory
         return [
             'name' => $this->faker->randomElement($this->faker->vehicleProperties) ?? $this->faker->realText(10),
             'description' => $this->faker->realText(rand(10, 100)),
-            'quantity' => rand(1, 100),
+            'quantity' => rand(15, 100),
         ];
     }
 }

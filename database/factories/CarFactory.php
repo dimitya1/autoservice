@@ -29,7 +29,7 @@ class CarFactory extends Factory
         $this->faker->addProvider(new \Faker\Provider\Fakecar($this->faker));
 
         return [
-            'user_id' => self::factoryForModel(User::class),
+            'user_id' => User::factory(),
             'make' => $this->faker->vehicleBrand,
             'model' => $this->faker->vehicleModel,
             'vin' => $this->faker->unique()->vin,

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Worklist;
+use App\Resources\Worklists;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
