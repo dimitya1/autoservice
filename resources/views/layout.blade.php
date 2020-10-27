@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -7,81 +7,78 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <title>ddddddddddddddddd</title>
-{{--    <title>@yield('title')</title>--}}
+
+    <title>@yield('title')</title>
+    <style>
+        body {
+            background-image: url(assets/img/background.jpg); /* Путь к фоновому изображению */
+        }
+    </style>
 </head>
 <body>
+<br>
+    <style>
+        div:not([id="bg"]){
+            background-color: #ffffe6
+        }
+        footer {
+            background-color: #d6d6c2
+        }
+    </style>
 
-<div class="container">
-{{--    <div class="row">--}}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Автосервис Одесса</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    @yield('content')
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Таирово Краснова, 5</a>
+<!-- Footer -->
+<footer class="page-footer font-small mdb-color lighten-33 pt-4">
+    <div class="container text-center text-md-left" id="bg">
+        <div class="row" id="bg">
+            <hr class="clearfix w-100 d-md-none">
+            <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1" id="bg">
+                <h5 class="font-weight-bold text-uppercase mb-4">Контакты</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="https://www.google.com/intl/ru/gmail/about/">
+                            <img src="https://img.icons8.com/ios-filled/50/000000/email-open.png"/></a>autoservice.politex@gmail.com
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">О нас <span class="sr-only">(current)</span></a>
+                    <li>
+                        <p><img src="https://img.icons8.com/ios-filled/50/000000/apple-phone.png"/>+380995683944</p>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Услуги
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Список услуг</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Записаться</a>
-                        </div>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Контакты <span class="sr-only">(current)</span></a>
-                    </li>
-                    @guest()
-                        <form class="form-inline">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Личный кабинет <span class="sr-only">(current)</span></a>
-                            </li>
-                        </form>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Личный кабинет <span class="sr-only">(current)</span></a>
-                    </li>
-                    @endguest
-                    @auth()
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Hello <span class="sr-only">(current)</span></a>
-                        </li>
-                    @endauth
                 </ul>
+
             </div>
-        </nav>
-{{--        <div class="col-8">--}}
-{{--            <a href="{{ route('home') }}" class="btn btn-light">--}}
-{{--            <a href="#" class="btn btn-light">--}}
-{{--                <img src="/assets/img/001-home-run.svg" alt="" width="32" height="32" title="Home"> Take me home</a>--}}
-{{--            <br>--}}
-{{--            <br>--}}
-{{--        </div>--}}
+            <hr class="clearfix w-100 d-md-none" id="bg">
+            <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1" id="bg">
+                <h5 class="font-weight-bold text-uppercase mb-4">Адрес</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="https://www.google.com.ua/maps/place/просп.+Шевченко,+1,+Одесса,+Одесская+область,+65000/@46.4590146,30.7493358,16z/data=!4m5!3m4!1s0x40c6316278a07fd1:0xfd1e879a0df88d16!8m2!3d46.459835!4d30.7518678?hl=ru">
+                            <img src="https://img.icons8.com/wired/64/000000/city.png"/></a>Одесса
+                    </li>
+                    <li>
+                        <a href="https://www.google.com.ua/maps/place/просп.+Шевченко,+1,+Одесса,+Одесская+область,+65000/@46.4590146,30.7493358,16z/data=!4m5!3m4!1s0x40c6316278a07fd1:0xfd1e879a0df88d16!8m2!3d46.459835!4d30.7518678?hl=ru">
+                            <img src="https://img.icons8.com/nolan/64/address.png"/></a>Пр-т Шевченка, 1
+                    </li>
+                </ul>
 
-{{--        <div class="col-4">--}}
-{{--            @guest--}}
-{{--                <p>Lox</p>--}}
-{{--            @endguest--}}
-
-{{--            @auth--}}
-{{--                <p>Hi, {{ auth()->user()->name }}</p>--}}
-{{--                <p><a href="{{ route('ad.create') }}" class="btn btn-success">Create ad</a></p>--}}
-{{--                <p><a href="{{ route('logout') }}" class="btn btn-primary">Logout</a></p>--}}
-{{--            @endauth--}}
-{{--        </div>--}}
+            </div>
+            <hr class="clearfix w-100 d-md-none">
+            <div class="col-md-2 col-lg-4 text-center mx-auto my-4" id="bg">
+                <h5 class="font-weight-bold text-uppercase mb-4">Мы в социальных сетях</h5>
+                <a href="https://www.facebook.com">
+                    <img src="https://img.icons8.com/cute-clipart/64/000000/facebook.png"/></a>
+                <a href="https://www.youtube.com">
+                    <img src="https://img.icons8.com/cute-clipart/64/000000/youtube-play.png"/></a>
+                <a href="https://www.instagram.com">
+                    <img src="https://img.icons8.com/cute-clipart/64/000000/instagram-new.png"/></a>
+                <a href="https://tlgrm.ru">
+                    <img src="https://img.icons8.com/cute-clipart/64/000000/telegram-app.png"/></a>
+            </div>
+        </div>
     </div>
-</div>
-
+    <div class="footer-copyright text-center py-3" id="bg">© 2020 Copyright:
+        <a href="#"> autoservice.com</a>
+    </div>
+</footer>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

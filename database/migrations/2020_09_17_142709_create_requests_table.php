@@ -19,6 +19,7 @@ class CreateRequestsTable extends Migration
             $table->foreignId('car_id');
             $table->text('description')->nullable();
             $table->tinyInteger('status')->default(0);
+            $table->timestamp('date');
             $table->timestamps();
             $table->softDeletes();
         });

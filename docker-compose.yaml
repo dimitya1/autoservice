@@ -43,3 +43,15 @@ services:
       - app
     volumes:
       - database:/var/lib/mysql
+
+  phpmyadmin:
+    image: "phpmyadmin:latest"
+#    depends_on:
+#      - mysql
+    environment:
+      - PMA_ARBITRARY=1
+    restart: always
+    ports:
+      - 8080:80
+    networks:
+      - app

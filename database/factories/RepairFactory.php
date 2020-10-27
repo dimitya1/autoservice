@@ -6,6 +6,7 @@ use App\Models\Mechanic;
 use App\Models\Repair;
 use App\Models\Request;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class RepairFactory extends Factory
