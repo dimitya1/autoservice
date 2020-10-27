@@ -11,14 +11,14 @@
     <title>@yield('title')</title>
     <style>
         body {
-            background-image: url(assets/img/background.jpg); /* Путь к фоновому изображению */
+            background-image: url(../assets/img/background.jpg); /* Путь к фоновому изображению */
         }
     </style>
 </head>
 <body>
 <br>
     <style>
-        div:not([id="bg"]){
+        div:not([id="bg"]):not([role="alert"]){
             background-color: #ffffe6
         }
         footer {

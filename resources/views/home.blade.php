@@ -6,8 +6,8 @@
     <div class="container">
         <br>
         <p class="text-center"
-           style="font-size: 52px; text-align: center; color: #800000; font-family: 'Segoe UI Black'; "><i>Авто
-                сервис</i></p>
+           style="font-size: 52px; text-align: center; color: #800000; font-family: 'Segoe UI Black'; ">
+            <i>Авто сервис "Политех"</i></p>
     </div>
     <div class="container">
         <br>
@@ -16,7 +16,7 @@
                 <a class="nav-link active" href="#">Главная</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Услуги</a>
+                <a class="nav-link" href="{{ route('services.index') }}">Услуги</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Контакты</a>
@@ -26,27 +26,42 @@
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                        aria-haspopup="true" aria-expanded="false">{{ auth()->user()->name }}</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Мой профиль</a>
+                        <a class="dropdown-item" href="{{ route('profile') }}">Мой профиль</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('car.create') }}">Добавить автомобиль</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Заказать услуги online</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Выйти</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}">Выйти</a>
                     </div>
                 @endauth
                 @guest
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                        aria-haspopup="true" aria-expanded="false">Личный кабинет</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Вход</a>
+                        <a class="dropdown-item" href="{{ route('login') }}">Вход</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Регистрация</a>
+                        <a class="dropdown-item" href="{{ route('register') }}">Регистрация</a>
                     </div>
                 @endguest
             </li>
         </ul>
         <br>
     </div>
+
     <div class="container">
+        @if(Session::has('successful login'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('successful login') }}
+            </div>
+        @endif
+        @if(Session::has('successful register'))
+            <div class="alert alert-success" role="alert">
+                <b>{{ Session::get('successful register') }}</b>
+                <p><a href="{{ route('car.create') }}" class="btn btn-success">Добавить автомобиль</a></p>
+            </div>
+        @endif
+
         <h4>Авто сервис «Политех» - это ремонт вашего автомобиля в Одессе качественно и недорого</h4>
         <br>
         <div class="row">
