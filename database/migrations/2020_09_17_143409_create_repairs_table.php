@@ -16,6 +16,7 @@ class CreateRepairsTable extends Migration
         Schema::create('repairs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('request_id');
+            $table->foreignId('worklist_id');
             $table->foreignId('mechanic_id');
             $table->tinyInteger('status')->default(0);
             $table->text('result')->nullable();

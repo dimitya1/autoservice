@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Добавление автомобиля')
+@section('title', 'Создание заявки')
 
 @section('content')
     <div class="container">
@@ -22,9 +22,9 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{ route('profile') }}">Мой профиль</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item active" href="#">Добавить автомобиль</a>
+                        <a class="dropdown-item" href="{{ route('car.create') }}">Добавить автомобиль</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('request.create') }}">Записаться на диагностику/ремонт</a>
+                        <a class="dropdown-item active" href="{{ route('request.create') }}">Записаться на диагностику/ремонт</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}">Выйти</a>
                     </div>
@@ -46,75 +46,49 @@
 
 
     <div class="container" style="margin-bottom: 90px">
-        <br>
-        @if(Session::has('old car'))
-            <div class="alert alert-danger" role="alert">
-                {{ Session::get('old car') }}
-            </div>
-            <br>
-        @endif
-        @if(Session::has('duplicate vin'))
-            <div class="alert alert-danger" role="alert">
-                {{ Session::get('duplicate vin') }}
-            </div>
-            <br>
-        @endif
-
-        <form method="post" action="{{ route('car.store') }}">
+        <form method="post" action="{{ route('request.store') }}">
             @csrf
 
             <div class="form-group">
-                @error('make')
+                @error('no car selected')
+                <br>
                 <div class="alert alert-danger" role="alert">
                     {{ $message }}
                 </div>
                 @enderror
-                <label for="make">Марка</label>
-                <input type="make" name="make" class="form-control">
+                <label class="my-1 mr-2" for="inlineFormCustomSelectPref"><h1 style="color: #191aff">Автомобиль</h1></label>
+                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="car">
+                    <option selected style="font-style: italic">Выберите автомобиль</option>
+                    @foreach($cars as $car)
+                        <option>{{ $car->make . ' ' . $car->model . ' ' . $car->year }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">
-                @error('model')
+                @error('no worklist selected')
                 <div class="alert alert-danger" role="alert">
                     {{ $message }}
                 </div>
                 @enderror
-                <label for="model">Модель</label>
-                <input type="model" name="model" class="form-control">
+                <div class="form-check">
+                    @foreach($categories as $category)
+                        <h1>{{ $category }}</h1>
+                        @foreach( \App\Models\Worklist::where('category', '=', $category)->get() as $worklist)
+                            <input class="form-check-input" type="checkbox" value="{{ $worklist->name }}" id="invalidCheck2" name="{{ $worklist->name }}">
+                            <p><label class="form-check-label" for="invalidCheck2">{{ $worklist->name }}</label></p>
+                        @endforeach
+                    @endforeach
+                </div>
             </div>
-
+            <br>
+            <br>
             <div class="form-group">
-                @error('year')
-                <div class="alert alert-danger" role="alert">
-                    {{ $message }}
-                </div>
-                @enderror
-                <label for="year">Год выпуска</label>
-                <input type="year" name="year" class="form-control">
+                <h4><label for="exampleFormControlTextarea1">Опишите, пожалуйста, работы по автомобилю, если в этом есть необходимость</label></h4>
+                <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
 
-            <div class="form-group">
-                @error('colour')
-                <div class="alert alert-danger" role="alert">
-                    {{ $message }}
-                </div>
-                @enderror
-                <label for="colour">Цвет</label>
-                <input type="colour" name="colour" class="form-control">
-            </div>
-
-            <div class="form-group">
-                @error('vin')
-                <div class="alert alert-danger" role="alert">
-                    {{ $message }}
-                </div>
-                @enderror
-                <label for="vin">vin-код</label>
-                <input type="vin" name="vin" class="form-control">
-                <small id="vinHelp" class="form-text text-muted">Пожалуйста, веедите правильный vin-номер.</small>
-            </div>
-
-            <button type="submit" class="btn btn-success">Добавить</button>
+            <button type="submit" class="btn-lg btn-primary">Создать заявку</button>
         </form>
         <br>
     </div>

@@ -24,7 +24,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('car.create') }}">Добавить автомобиль</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Заказать услуги online</a>
+                        <a class="dropdown-item" href="{{ route('request.create') }}">Записаться на диагностику/ремонт</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}">Выйти</a>
                     </div>
@@ -44,6 +44,18 @@
     </div>
 
     <div class="container">
+        @guest()
+            <div class="alert alert-warning" role="alert">
+                Пожалуйста, зарегистрируйтесь или войдите для создания заявки
+            </div>
+        @endguest
+        @auth()
+            <div class="alert alert-info" role="alert">
+                Нажмите на кнопку, чтобы создать заявку
+                <p><a href="{{ route('request.create') }}" style="margin-top: 20px" class="btn btn-info">Создать заявку</a></p>
+            </div>
+        @endauth
+
         <div class="row">
             <div class="col-2">
                 <div class="btn-group-vertical">

@@ -197,7 +197,8 @@ class DatabaseSeeder extends Seeder
                     $randRequestWorklist = rand(1, 5);
                     $request->worklists()->attach($worklists->pluck('id')->random($randRequestWorklist));
                     Repair::factory()->count($randRequestWorklist)->create(
-                        ['request_id' => $request->id, 'mechanic_id' => $mechanicIds->random(), 'status' => $request->status]
+                        ['request_id' => $request->id, 'mechanic_id' => $mechanicIds->random(),
+                            'worklist_id' => $worklists->pluck('id')->random(), 'status' => $request->status]
                     )->each(function ($repair) use ($tools) {
                         $repair->tools()->attach($tools->pluck('id')->random(rand(1, 10)), ['used_quantity' => rand(0, 15)]);
                     });

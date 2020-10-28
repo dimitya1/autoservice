@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RepairController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,4 +40,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/car/create', [CarController::class, 'create'])->name('car.create');
 
     Route::post('/car/create', [CarController::class, 'store'])->name('car.store');
+
+    Route::get('/request/create', [ServiceController::class, 'create'])->name('request.create');
+
+    Route::post('/request/create', [ServiceController::class, 'store'])->name('request.store');
+
+    Route::get('/repairs', [RepairController::class, 'index'])->name('repairs.index');
 });

@@ -30,7 +30,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('car.create') }}">Добавить автомобиль</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Заказать услуги online</a>
+                        <a class="dropdown-item" href="{{ route('request.create') }}">Записаться на диагностику/ремонт</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}">Выйти</a>
                     </div>
@@ -58,7 +58,7 @@
         @if(Session::has('successful register'))
             <div class="alert alert-success" role="alert">
                 <b>{{ Session::get('successful register') }}</b>
-                <p><a href="{{ route('car.create') }}" class="btn btn-success">Добавить автомобиль</a></p>
+                <p><a href="{{ route('car.create') }}" class="btn btn-success" style="margin-top: 20px>Добавить автомобиль</a></p>
             </div>
         @endif
 
@@ -120,4 +120,6 @@
         </div>
         <img src="/assets/img/brands.jpg" class="img-fluid" alt="Responsive image">
     </div>
+    <br>
+    <br>
 @endsection

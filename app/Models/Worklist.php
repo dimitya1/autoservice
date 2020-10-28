@@ -12,6 +12,11 @@ class Worklist extends Model
 
     public function requests()
     {
-        return $this->belongsToMany(Request::class);
+        return $this->belongsToMany(Request::class)->withTimestamps();
+    }
+
+    public function repairs()
+    {
+        return $this->hasMany(Repair::class);
     }
 }

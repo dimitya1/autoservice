@@ -24,7 +24,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('car.create') }}">Добавить автомобиль</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Заказать услуги online</a>
+                        <a class="dropdown-item" href="{{ route('request.create') }}">Записаться на диагностику/ремонт</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}">Выйти</a>
                     </div>
