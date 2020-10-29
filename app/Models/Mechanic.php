@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Mechanic extends Model
 {
-    use HasFactory, softDeletes;
+    use HasFactory;
 
     public function repairs()
     {

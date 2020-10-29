@@ -7,7 +7,7 @@ use App\Models\Mechanic;
 use App\Models\Repair;
 use App\Models\Request;
 use App\Models\Worklist;
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -133,14 +133,21 @@ final class ServiceController
             $q->where('request_id', '=', $request->id);
         })->get();
 
+        $sumToPay = 0;
+
         foreach ($requestWorklists as $requestWorklist) {
+            $sumToPay = $sumToPay + $requestWorklist->price;
             $repair = new Repair();
             $repair->request_id = $request->id;
-            $repair->worklist_id = $requestWorklist->id ?? Mechanic::all()->pluck('id')->random();
-            $repair->mechanic_id = $randomMeachanicsWithoutWorkId;
+            $repair->worklist_id = $requestWorklist->id;
+            $repair->mechanic_id = $randomMeachanicsWithoutWorkId ?? Mechanic::all()->pluck('id')->random();
             $repair->status = 0;
             $repair->save();
         }
+
+        return redirect()->route('profile')->with(
+            ['created request' => 'Заявка успешно добавлена. Приезжайте к нам с ' .
+                Carbon::parse($request->date)->format("d.m с h:i") . ' Примерная стоимость услуг - ' .  $sumToPay . 'грн.']);
     }
 }
 

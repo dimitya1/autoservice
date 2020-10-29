@@ -24,7 +24,10 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('car.create') }}">Добавить автомобиль</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('request.create') }}">Записаться на диагностику/ремонт</a>
+                        <a class="dropdown-item" href="{{ route('request.create') }}">Записаться на
+                            диагностику/ремонт</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item active" href="#">Работы по моим автомобилям</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}">Выйти</a>
                     </div>
@@ -63,7 +66,12 @@
                     <td style="max-width: 200px">{{ $repair->worklist->name }}</td>
                     <td>{{ $repair->mechanic->name }}</td>
                     <td>{{ $repair->mechanic->mobile_phone }}</td>
-                    <td>{{ $repair->status ? 'Завершена' : 'В работе'}}</td>
+                    @if(\Illuminate\Support\Carbon::parse($repair->request->date)->gt(\Illuminate\Support\Carbon::now()) && $repair->status === 0)
+                        <td>{{ 'Приезжайте к нам с ' .
+                            \Illuminate\Support\Carbon::parse($repair->request->date)->format("d.m с h:i") }}</td>
+                    @else
+                        <td>{{ $repair->status ? 'Завершена' : 'В работе'}}</td>
+                    @endif
                     <td>{{ $repair->created_at }}</td>
                 </tr>
             @endforeach

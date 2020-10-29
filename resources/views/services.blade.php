@@ -26,6 +26,8 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('request.create') }}">Записаться на диагностику/ремонт</a>
                         <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('repairs.index') }}">Работы по моим автомобилям</a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}">Выйти</a>
                     </div>
                 @endauth

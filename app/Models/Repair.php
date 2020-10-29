@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Repair extends Model
 {
-    use HasFactory, softDeletes;
+    use HasFactory;
 
     public function request()
     {

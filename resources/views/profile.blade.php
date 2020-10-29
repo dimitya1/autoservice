@@ -26,6 +26,8 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('request.create') }}">Записаться на диагностику/ремонт</a>
                         <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('repairs.index') }}">Работы по моим автомобилям</a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}">Выйти</a>
                     </div>
                 @endauth
@@ -49,6 +51,12 @@
         @if(Session::has('successful car add'))
             <div class="alert alert-success" role="alert">
                 {{ Session::get('successful car add') }}
+            </div>
+            <br>
+        @endif
+        @if(Session::has('created request'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('created request') }}
             </div>
             <br>
         @endif

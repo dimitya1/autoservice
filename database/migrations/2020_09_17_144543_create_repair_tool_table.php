@@ -18,7 +18,6 @@ class CreateRepairToolTable extends Migration
             $table->foreignId('repair_id');
             $table->integer('used_quantity')->default(0);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

@@ -21,7 +21,6 @@ class CreateRequestsTable extends Migration
             $table->tinyInteger('status')->default(0);
             $table->timestamp('date');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

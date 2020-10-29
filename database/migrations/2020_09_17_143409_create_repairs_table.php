@@ -21,7 +21,6 @@ class CreateRepairsTable extends Migration
             $table->tinyInteger('status')->default(0);
             $table->text('result')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

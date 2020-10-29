@@ -17,7 +17,6 @@ class CreateRequestWorklistTable extends Migration
             $table->foreignId('request_id');
             $table->foreignId('worklist_id');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
