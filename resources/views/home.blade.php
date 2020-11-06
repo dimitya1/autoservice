@@ -19,7 +19,7 @@
                 <a class="nav-link" href="{{ route('services.index') }}">Услуги</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Контакты</a>
+                <a class="nav-link" href="{{ route('contacts') }}">Контакты</a>
             </li>
             <li class="nav-item dropdown">
                 @auth
@@ -52,6 +52,9 @@
     </div>
 
     <div class="container">
+        @if(auth()->user() !== null && auth()->user()->is_admin === 1)
+            <a href="{{ route('admin.panel') }}" style="mmargin-top: 40px; margin-bottom: 20px" class="btn btn-danger btn-lg btn-block">Административная панель</a>
+        @endif
         @if(Session::has('successful login'))
             <div class="alert alert-success" role="alert">
                 {{ Session::get('successful login') }}

@@ -13,7 +13,7 @@
                 <a class="nav-link" href="{{ route('services.index') }}">Услуги</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Контакты</a>
+                <a class="nav-link" href="{{ route('contacts') }}">Контакты</a>
             </li>
             <li class="nav-item dropdown">
                 @auth
@@ -48,7 +48,17 @@
 
 
     <div class="container" style="margin-bottom: 90px">
+        @if(auth()->user() !== null && auth()->user()->is_admin === 1)
+            <a href="{{ route('admin.panel') }}" style="margin-top: 20px" class="btn btn-danger btn-lg btn-block">Административная панель</a>
+        @endif
+
         <br>
+        @error('no cars')
+        <br>
+        <div class="alert alert-warning" role="alert">
+            {{ $message }}
+        </div>
+        @enderror
         @if(Session::has('old car'))
             <div class="alert alert-danger" role="alert">
                 {{ Session::get('old car') }}

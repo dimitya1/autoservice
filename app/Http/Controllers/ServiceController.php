@@ -79,6 +79,10 @@ final class ServiceController
 
     public function create()
     {
+        if (auth()->user()->cars->count() === 0) {
+            return view('car-create-form')->withErrors(['no cars' => 'Для начала добавьте Ваш автомобиль!']);
+        }
+
         $cars = auth()->user()->cars->all();
 
         $categories = Worklist::all()->pluck('category')->unique()->toArray();

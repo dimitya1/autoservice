@@ -13,7 +13,7 @@
                 <a class="nav-link" href="{{ route('services.index') }}">Услуги</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Контакты</a>
+                <a class="nav-link" href="{{ route('contacts') }}">Контакты</a>
             </li>
             <li class="nav-item dropdown">
                 @auth
@@ -48,6 +48,9 @@
     <br>
 
     <div class="container">
+        @if(auth()->user() !== null && auth()->user()->is_admin === 1)
+            <a href="{{ route('admin.panel') }}" style="margin-top: 40px; margin-bottom: 20px" class="btn btn-danger btn-lg btn-block">Административная панель</a>
+        @endif
         <table class="table">
             <thead class="thead-dark">
             <tr>

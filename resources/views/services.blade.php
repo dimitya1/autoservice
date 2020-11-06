@@ -13,7 +13,7 @@
                 <a class="nav-link active" href="#">Услуги</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Контакты</a>
+                <a class="nav-link" href="{{ route('contacts') }}">Контакты</a>
             </li>
             <li class="nav-item dropdown">
                 @auth
@@ -46,6 +46,10 @@
     </div>
 
     <div class="container">
+        @if(auth()->user() !== null && auth()->user()->is_admin === 1)
+            <a href="{{ route('admin.panel') }}" style="margin-top: 20px" class="btn btn-danger btn-lg btn-block">Административная панель</a>
+        @endif
+
         @guest()
             <div class="alert alert-warning" role="alert">
                 Пожалуйста, зарегистрируйтесь или войдите для создания заявки

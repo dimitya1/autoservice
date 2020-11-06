@@ -13,7 +13,7 @@
                 <a class="nav-link" href="{{ route('services.index') }}">Услуги</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Контакты</a>
+                <a class="nav-link" href="{{ route('contacts') }}">Контакты</a>
             </li>
             <li class="nav-item dropdown">
                 @auth
@@ -48,6 +48,10 @@
 
 
     <div class="container" style="margin-bottom: 90px">
+        @if(auth()->user() !== null && auth()->user()->is_admin === 1)
+            <a href="{{ route('admin.panel') }}" style="margin-top: 20px" class="btn btn-danger btn-lg btn-block">Административная панель</a>
+        @endif
+
         <form method="post" action="{{ route('request.store') }}">
             @csrf
 
@@ -78,7 +82,7 @@
                         <h1>{{ $category }}</h1>
                         @foreach( \App\Models\Worklist::where('category', '=', $category)->get() as $worklist)
                             <input class="form-check-input" type="checkbox" value="{{ $worklist->name }}" id="invalidCheck2" name="{{ $worklist->name }}">
-                            <p><label class="form-check-label" for="invalidCheck2">{{ $worklist->name }}</label></p>
+                            <p><label class="form-check-label" for="invalidCheck2">{{ $worklist->name . ' ' . $worklist->price . 'грн'}}</label></p>
                         @endforeach
                     @endforeach
                 </div>

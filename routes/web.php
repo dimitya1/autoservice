@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RepairController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Middleware\CheckAdmin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomeController::class)->name('home');
+
+Route::get('/contacts', ContactsController::class)->name('contacts');
 
 Route::get('/services/{category?}', [ServiceController::class, 'index'])->name('services.index');
 
@@ -46,4 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/request/create', [ServiceController::class, 'store'])->name('request.store');
 
     Route::get('/repairs', [RepairController::class, 'index'])->name('repairs.index');
+
+    Route::middleware(CheckAdmin::class)->group(function () {
+        Route::get('/admin', [AdminController::class, 'panel'])->name('admin.panel');
+    });
 });
