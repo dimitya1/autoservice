@@ -9,6 +9,8 @@
     <br>
 
     <div class="container" style="margin-bottom: 90px">
-
+        <a href="{{ route('admin.users.index') }}" class="btn btn-danger btn-lg">Клиенты</a>
+        <br>
+        <a href="{{ route('admin.mechanics.index') }}" class="btn btn-danger btn-lg">Механики</a>
     </div>
 @endsection

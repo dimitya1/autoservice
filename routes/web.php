@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminMechanicsController;
+use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ContactsController;
@@ -53,6 +55,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/repairs', [RepairController::class, 'index'])->name('repairs.index');
 
     Route::middleware(CheckAdmin::class)->group(function () {
-        Route::get('/admin', [AdminController::class, 'panel'])->name('admin.panel');
+        Route::get('/admin', AdminController::class)->name('admin.panel');
+
+        Route::get('/admin/users', [AdminUsersController::class, 'index'])->name('admin.users.index');
+
+        Route::get('/admin/users/{user}', [AdminUsersController::class, 'show'])->name('admin.users.show');
+
+        Route::delete('/admin/users/{user}', [AdminUsersController::class, 'destroy'])->name('admin.users.destroy');
+
+        Route::get('/admin/mechanics/{orderBy?}', [AdminMechanicsController::class, 'index'])->name('admin.mechanics.index');
+
+        Route::get('/admin/mechanics/{mechanic}', [AdminMechanicsController::class, 'show'])->name('admin.mechanics.show');
+
+        Route::delete('/admin/mechanics/{mechanic}', [AdminMechanicsController::class, 'destroy'])->name('admin.mechanics.destroy');
     });
 });

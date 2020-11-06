@@ -130,8 +130,9 @@ final class ServiceController
             }
         }
 
-        $meachanicsWithoutWork = Mechanic::all()->where('status', 0);
-        $randomMeachanicsWithoutWorkId = $meachanicsWithoutWork->pluck('id')->random();
+        $mechanicsWithoutWork = Mechanic::all()->where('status', 0);
+
+        $randomMechanicWithoutWork = $mechanicsWithoutWork->random();
 
         $requestWorklists = Worklist::whereHas('requests', function ($q) use ($request) {
             $q->where('request_id', '=', $request->id);
@@ -144,10 +145,12 @@ final class ServiceController
             $repair = new Repair();
             $repair->request_id = $request->id;
             $repair->worklist_id = $requestWorklist->id;
-            $repair->mechanic_id = $randomMeachanicsWithoutWorkId ?? Mechanic::all()->pluck('id')->random();
+            $repair->mechanic_id = $randomMechanicWithoutWork->pluck('id') ?? Mechanic::all()->pluck('id')->random();
             $repair->status = 0;
             $repair->save();
         }
+
+        $randomMechanicWithoutWork->status = 1;
 
         return redirect()->route('profile')->with(
             ['created request' => 'Заявка успешно добавлена. Приезжайте к нам с ' .

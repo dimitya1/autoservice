@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 final class AdminController
 {
-    public function panel()
+    public function __invoke()
     {
         return view('admin-panel');
     }
