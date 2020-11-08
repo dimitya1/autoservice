@@ -24,7 +24,8 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('car.create') }}">Добавить автомобиль</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('request.create') }}">Записаться на диагностику/ремонт</a>
+                        <a class="dropdown-item" href="{{ route('request.create') }}">Записаться на
+                            диагностику/ремонт</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('repairs.index') }}">Работы по моим автомобилям</a>
                         <div class="dropdown-divider"></div>
@@ -48,13 +49,24 @@
 
     <div class="container">
         @if(auth()->user() !== null && auth()->user()->is_admin === 1)
-            <a href="{{ route('admin.panel') }}" style="margin-top: 20px" class="btn btn-danger btn-lg btn-block">Административная панель</a>
+            <a href="{{ route('admin.panel') }}" style="margin-top: 20px" class="btn btn-danger btn-lg btn-block">Административная
+                панель</a>
         @endif
         @if(Session::has('successful car add'))
             <div class="alert alert-success" role="alert">
                 {{ Session::get('successful car add') }}
             </div>
             <br>
+        @endif
+        @if(Session::has('nothing to update'))
+            <div class="alert alert-warning" role="alert">
+                {{ Session::get('nothing to update') }}
+            </div>
+        @endif
+        @if(Session::has('successful profile edit'))
+            <div class="alert alert-info" role="alert">
+                {{ Session::get('successful profile edit') }}
+            </div>
         @endif
         @if(Session::has('created request'))
             <div class="alert alert-success" role="alert">
@@ -76,27 +88,34 @@
                 @endif
 
                 @foreach($authUser->cars as $car)
-                    <p class="card-text">	&#9899{{ $car->make . ' ' . $car->model . ' ' . $car->year }}</p>
+                    <p class="card-text"> &#9899{{ $car->make . ' ' . $car->model . ' ' . $car->year }}</p>
                 @endforeach
-                <a href="{{ route('car.create') }}" class="btn btn-success" style="margin-bottom: 15px">Добавить автомобиль</a>
+                <a href="{{ route('car.create') }}" class="btn btn-success" style="margin-bottom: 15px">Добавить
+                    автомобиль</a>
 
                 @if($doneRepairsCount === 0 && $repairsCount !== 0)
-                    <h5 class="card-text" style="margin-bottom: 20px"><b>Для Вас выполнено {{ $doneRepairsCount }} работ из {{ $repairsCount }}</b></h5>
+                    <h5 class="card-text" style="margin-bottom: 20px"><b>Для Вас выполнено {{ $doneRepairsCount }} работ
+                            из {{ $repairsCount }}</b></h5>
                 @endif
                 @if($doneRepairsCount === 1)
-                    <h5 class="card-text" style="margin-bottom: 20px"><b>Для Вас выполнена {{ $doneRepairsCount }} работа из {{ $repairsCount }}</b></h5>
+                    <h5 class="card-text" style="margin-bottom: 20px"><b>Для Вас выполнена {{ $doneRepairsCount }}
+                            работа из {{ $repairsCount }}</b></h5>
                 @elseif($doneRepairsCount >= 2 && $doneRepairsCount <= 4)
-                    <h5 class="card-text" style="margin-bottom: 20px"><b>Для Вас выполнено {{ $doneRepairsCount }} работы из {{ $repairsCount }}</b></h5>
+                    <h5 class="card-text" style="margin-bottom: 20px"><b>Для Вас выполнено {{ $doneRepairsCount }}
+                            работы из {{ $repairsCount }}</b></h5>
                 @elseif($doneRepairsCount > 4)
-                    <h5 class="card-text" style="margin-bottom: 20px"><b>Для Вас выполнено {{ $doneRepairsCount }} работ из {{ $repairsCount }}</b></h5>
+                    <h5 class="card-text" style="margin-bottom: 20px"><b>Для Вас выполнено {{ $doneRepairsCount }} работ
+                            из {{ $repairsCount }}</b></h5>
                 @endif
 
                 @if($repairsCount > 0)
-                    <a href="{{ route('repairs.index') }}" class="btn btn-info" style="margin-bottom: 25px">Подробнее о работах по автомобилю</a>
+                    <a href="{{ route('repairs.index') }}" class="btn btn-info" style="margin-bottom: 25px">Подробнее о
+                        работах по автомобилю</a>
                 @endif
                 @if($authUser->cars->count() > 0)
                     <p><a href="{{ route('request.create') }}" class="btn-lg btn-secondary">Создать заявку</a></p>
                 @endif
+                <a href="{{ route('profile.edit') }}" class="btn btn-warning">Редактировать профиль</a>
             </div>
             <div class="card-footer">
                 <small class="text-muted">Профиль создан {{ $authUser->created_at->diffForHumans() }}</small>

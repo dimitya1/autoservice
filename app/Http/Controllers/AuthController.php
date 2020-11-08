@@ -11,20 +11,6 @@ use Illuminate\Support\Str;
 
 final class AuthController
 {
-    public function profile() {
-        $authUser = User::find(auth()->id());
-
-        $repairsCount = $authUser->repairs->count();
-        $doneRepairsCount = $authUser->repairs->where('status', '=', 1)->count();
-
-        return view('profile', [
-            'authUser' => $authUser,
-            'repairsCount' => $repairsCount,
-            'doneRepairsCount' => $doneRepairsCount
-        ]);
-    }
-
-
     public function login()
     {
         return view('login-form');

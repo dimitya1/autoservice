@@ -145,12 +145,13 @@ final class ServiceController
             $repair = new Repair();
             $repair->request_id = $request->id;
             $repair->worklist_id = $requestWorklist->id;
-            $repair->mechanic_id = $randomMechanicWithoutWork->pluck('id') ?? Mechanic::all()->pluck('id')->random();
+            $repair->mechanic_id = $randomMechanicWithoutWork->id ?? Mechanic::all()->pluck('id')->random();
             $repair->status = 0;
             $repair->save();
         }
 
         $randomMechanicWithoutWork->status = 1;
+        $randomMechanicWithoutWork->save();
 
         return redirect()->route('profile')->with(
             ['created request' => 'Заявка успешно добавлена. Приезжайте к нам с ' .

@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RepairController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Middleware\CheckAdmin;
@@ -42,7 +43,11 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+    Route::post('/profile/edit', [ProfileController::class, 'update']);
 
     Route::get('/car/create', [CarController::class, 'create'])->name('car.create');
 
@@ -63,9 +68,13 @@ Route::middleware('auth')->group(function () {
 
         Route::delete('/admin/users/{user}', [AdminUsersController::class, 'destroy'])->name('admin.users.destroy');
 
-        Route::get('/admin/mechanics/{orderBy?}', [AdminMechanicsController::class, 'index'])->name('admin.mechanics.index');
+        Route::get('/admin/all_mechanics/{orderBy?}', [AdminMechanicsController::class, 'index'])->name('admin.mechanics.index');
 
         Route::get('/admin/mechanics/{mechanic}', [AdminMechanicsController::class, 'show'])->name('admin.mechanics.show');
+
+        Route::get('/admin/mechanics/{mechanic}/edit', [AdminMechanicsController::class, 'edit'])->name('admin.mechanics.edit');
+
+        Route::patch('/admin/mechanics/{mechanic}', [AdminMechanicsController::class, 'update'])->name('admin.mechanics.update');
 
         Route::delete('/admin/mechanics/{mechanic}', [AdminMechanicsController::class, 'destroy'])->name('admin.mechanics.destroy');
     });

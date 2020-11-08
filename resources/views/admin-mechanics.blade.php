@@ -9,6 +9,16 @@
     </div>
     <br>
     <div class="container" style="margin-left: auto; margin-right: auto">
+        @if(Session::has('duplicate email'))
+            <div class="alert alert-warning" role="alert">
+                {{ Session::get('duplicate email') }}
+            </div>
+        @endif
+        @if(Session::has('successful mechanic update'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('successful mechanic update') }}
+            </div>
+        @endif
         <div class="btn-group" style="margin-bottom: 20px; margin-top: 20px">
             <button type="button" class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -17,24 +27,43 @@
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{ route('admin.mechanics.index', ['orderBy' => 'Только_свободные']) }}">Только
                     свободные</a>
-                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('admin.mechanics.index', ['orderBy' => 'Только_занятые']) }}">Только
                     занятые</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{ route('admin.mechanics.index', ['orderBy' => null]) }}">Все</a>
             </div>
         </div>
 
-        <p>
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
-                    aria-expanded="false" aria-controls="collapseExample">
-                Посмотреть самого результативного механика
-            </button>
-        </p>
-        <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-                <p>Механик <b> {{ $bestMechanic[0]->name }} </b> с e-mail <i>{{ $bestMechanic[0]->email }}</i> принёс наибольшую
-                    прибыль в этом месяце в размере <b> {{ $bestMechanic[0]->sum . ' грн.' }} </b></p>
+        @if(!empty($bestMechanicLastMonth))
+            <p>
+                <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapse1"
+                        aria-expanded="false" aria-controls="collapse1">
+                    Посмотреть самого результативного механика в прошлом месяце
+                </button>
+            </p>
+            <div class="collapse" id="collapse1">
+                <div class="card card-body">
+                    <p>Механик <b> {{ $bestMechanicLastMonth[0]->name }} </b> принёс
+                        наибольшую
+                        прибыль в прошлом месяце в размере <b> {{ $bestMechanicLastMonth[0]->sum . ' грн.' }} </b></p>
+                </div>
             </div>
-        </div>
+        @endif
+        @if(!empty($bestMechanic))
+            <p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                    Посмотреть самого результативного механика в этом месяце
+                </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <p>Механик <b> {{ $bestMechanic[0]->name }} </b> принёс
+                        наибольшую
+                        прибыль в этом месяце в размере <b> {{ $bestMechanic[0]->sum . ' грн.' }} </b></p>
+                </div>
+            </div>
+        @endif
         <br>
         <table class="table">
             <thead class="thead-dark">
@@ -45,6 +74,7 @@
                 <th scope="col">Статус</th>
                 <th scope="col">Время добавления</th>
                 <th scope="col">Статистика</th>
+                <th scope="col">Изменить</th>
                 <th scope="col">Удалить</th>
             </tr>
             </thead>
@@ -57,6 +87,8 @@
                     <td>{{ $mechanic->status ? 'Занят' : 'Свободен'}}</td>
                     <td>{{ $mechanic->created_at }}</td>
                     <td><a href="{{ route('admin.mechanics.show', ['mechanic' => $mechanic]) }}" class="btn btn-info">Подробнее</a>
+                    <td><a href="{{ route('admin.mechanics.edit', ['mechanic' => $mechanic]) }}"
+                           class="btn btn-warning">Изменить</a>
                     </td>
                     </td>
                     <td>

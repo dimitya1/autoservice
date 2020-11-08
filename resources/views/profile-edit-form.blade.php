@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Регистрация')
+@section('title', 'Редактирование профиля')
 
 @section('content')
     <div class="container">
@@ -17,14 +17,15 @@
             </li>
             <li class="nav-item dropdown">
                 @auth
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                    <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button"
                        aria-haspopup="true" aria-expanded="false">{{ auth()->user()->name }}</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ route('profile') }}">Мой профиль</a>
+                        <a class="dropdown-item active" href="#">Мой профиль</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('car.create') }}">Добавить автомобиль</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('request.create') }}">Записаться на диагностику/ремонт</a>
+                        <a class="dropdown-item" href="{{ route('request.create') }}">Записаться на
+                            диагностику/ремонт</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('repairs.index') }}">Работы по моим автомобилям</a>
                         <div class="dropdown-divider"></div>
@@ -32,12 +33,12 @@
                     </div>
                 @endauth
                 @guest
-                    <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button"
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                        aria-haspopup="true" aria-expanded="false">Личный кабинет</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{ route('login') }}">Вход</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item active" href="#">Регистрация</a>
+                        <a class="dropdown-item" href="{{ route('register') }}">Регистрация</a>
                     </div>
                 @endguest
             </li>
@@ -48,16 +49,14 @@
 
 
     <div class="container" style="margin-bottom: 90px">
-
-        <br>
-        @if(Session::has('duplicate email'))
+        @if(Session::has('password does not match'))
             <div class="alert alert-danger" role="alert">
-                {{ Session::get('duplicate email') }}
+                {{ Session::get('password does not match') }}
             </div>
         @endif
-        <br>
 
-        <form method="post" action="{{ route('register') }}">
+
+        <form method="post" action="{{ route('profile.edit') }}">
             @csrf
 
             <div class="form-group">
@@ -67,21 +66,17 @@
                 </div>
                 @enderror
                 <label for="name">ФИО</label>
-                <input type="name" name="name" class="form-control">
-                <small id="nameHelp" class="form-text text-muted">Мы не передаём личную информацию третим
-                    лицам.</small>
+                <input type="name" name="name" class="form-control"
+                       value="{{ old('name', $authUser->name) }}">
             </div>
 
-            <div class="form-group">
-                @error('email')
-                <div class="alert alert-danger" role="alert">
-                    {{ $message }}
+            <fieldset disabled>
+                <div class="form-group">
+                    <label for="email">E-Mail</label>
+                    <input type="text" id="disabledTextInput" class="form-control"
+                           placeholder="{{ old('email', $authUser->email) }}">
                 </div>
-                @enderror
-                <label for="email">E-Mail</label>
-                <input type="email" name="email" class="form-control" id="exampleInputEmail1"
-                       aria-describedby="emailHelp">
-            </div>
+            </fieldset>
 
             <div class="form-group">
                 @error('mobile')
@@ -89,9 +84,9 @@
                     {{ $message }}
                 </div>
                 @enderror
-                <label for="mobile">Мобильный номер</label>
-                <input type="mobile" name="mobile" class="form-control" placeholder="+380">
-                <small id="mobileHelp" class="form-text text-muted">Мобильный номер в международном формате.</small>
+                <label for="mobile">Телефон</label>
+                <input type="mobile" name="mobile" class="form-control"
+                       value="{{ old('mobile', $authUser->mobile_phone) }}">
             </div>
 
             <div class="form-group">
@@ -100,24 +95,11 @@
                     {{ $message }}
                 </div>
                 @enderror
-                <label for="password">Пароль</label>
+                <label for="password">Пожалуйста, введите Ваш текущий пароль</label>
                 <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-                <small id="passwordHelp" class="form-text text-muted">Пароль должен быть на английском языке, состоять минимум из 6 символов,
-                    содержать строчные и заглавные буквы и хотя бы 1 цифру.</small>
             </div>
 
-            <div class="form-group">
-                @error('password_confirmation')
-                <div class="alert alert-danger" role="alert">
-                    {{ $message }}
-                </div>
-                @enderror
-                <label for="password_confirmation">Подтвердите пароль</label>
-                <input type="password" name="password_confirmation" class="form-control" id="exampleInputPassword1">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Регистрация</button>
+            <button type="submit" class="btn btn-primary">Подтвердить</button>
         </form>
-        <br>
     </div>
 @endsection

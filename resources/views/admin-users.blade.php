@@ -7,7 +7,12 @@
         <a href="{{ route('admin.panel') }}" style="margin-top: 20px" class="btn btn-danger btn-lg btn-block">Административная панель</a>
     </div>
     <br>
+
     <div class="container" style="margin-left: auto; margin-right: auto">
+        <br>
+        <h3>Всего клиентов <span class="badge badge-primary">{{ $users->count() }}</span></h3>
+        <h3>Новых клиентов в прошлом месяце <span class="badge badge-secondary">{{ $newUsersLastMonthCount }}</span></h3>
+        <h3>Новых клиентов в этом месяце <span class="badge badge-success">{{ $newUsersCount }}</span></h3>
         <br>
         <table class="table">
             <thead class="thead-dark">
