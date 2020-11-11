@@ -4,14 +4,27 @@
 
 @section('content')
     <div class="container">
-        <a href="{{ route('admin.panel') }}" style="margin-top: 20px" class="btn btn-danger btn-lg btn-block">Административная панель</a>
+        <a href="{{ route('admin.panel') }}" style="margin-top: 20px" class="btn btn-danger btn-lg btn-block">Административная
+            панель</a>
     </div>
     <br>
 
     <div class="container" style="margin-left: auto; margin-right: auto">
+        @if(Session::has('successful user delete'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('successful user delete') }}
+            </div>
+        @endif
+        @if(Session::has('successful user create'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('successful user create') }}
+            </div>
+        @endif
+        <a href="{{ route('admin.users.create') }}" class="btn btn-lg btn-success" style="margin-top: 10px">Зарегистрировать нового пользователя</a>
         <br>
         <h3>Всего клиентов <span class="badge badge-primary">{{ $users->count() }}</span></h3>
-        <h3>Новых клиентов в прошлом месяце <span class="badge badge-secondary">{{ $newUsersLastMonthCount }}</span></h3>
+        <h3>Новых клиентов в прошлом месяце <span class="badge badge-secondary">{{ $newUsersLastMonthCount }}</span>
+        </h3>
         <h3>Новых клиентов в этом месяце <span class="badge badge-success">{{ $newUsersCount }}</span></h3>
         <br>
         <table class="table">
@@ -32,7 +45,7 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->mobile_phone }}</td>
                     <td>{{ $user->created_at }}</td>
-                    <td><a href="{{ route('admin.users.show', ['user' => $user]) }}" class="btn btn-info">Подробнее</a></td>
+                    <td><a href="{{ route('admin.users.show', ['user' => $user]) }}" class="btn btn-info">Подробнее</a>
                     </td>
                     <td>
                         <form method="POST" action="{{ route('admin.users.destroy', ['user' => $user]) }}">

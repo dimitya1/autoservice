@@ -12,5 +12,7 @@
         <a href="{{ route('admin.users.index') }}" class="btn btn-danger btn-lg">Клиенты</a>
         <br>
         <a href="{{ route('admin.mechanics.index') }}" class="btn btn-danger btn-lg">Механики</a>
+        <br>
+        <a href="{{ route('admin.tools.index') }}" class="btn btn-danger btn-lg">Инструменты и расходники</a>
     </div>
 @endsection

@@ -51,6 +51,45 @@ final class AdminMechanicsController
         return view('admin-mechanics', ['mechanics' => $mechanics, 'bestMechanic' => $bestMechanic, 'bestMechanicLastMonth' => $bestMechanicLastMonth]);
     }
 
+    public function create()
+    {
+        return view('admin-mechanics-create');
+    }
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make(
+            request()->all(),
+            [
+                'name' => 'required|min:4|max:75',
+                'email' => 'required|min:9|max:45|email',
+                'mobile' => 'required|min:13|max:13',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->route('admin.mechanics.create')
+                ->withErrors($validator->errors());
+        }
+
+        $mechanicDataArray = request()->all();
+
+        if (Mechanic::where('email', $mechanicDataArray['email'])->first() == null) {
+            $mechanic = new Mechanic();
+            $mechanic->name = $mechanicDataArray['name'];
+            $mechanic->email = $mechanicDataArray['email'];
+            $mechanic->mobile_phone = $mechanicDataArray['mobile'];
+            $mechanic->status = 0;
+            $mechanic->save();
+            return redirect()
+                ->route('admin.mechanics.index')
+                ->with('successful mechanic create', 'Вы успешно добавили нового работника!');
+
+        } else return redirect()
+            ->route('admin.mechanics.create')
+            ->with('duplicate email', 'Работник с e-mail ' . $mechanicDataArray['email'] . ' уже существует!');
+    }
+
     public function show(Mechanic $mechanic)
     {
         return view('admin-one_mechanic', ['mechanic' => $mechanic]);
@@ -60,7 +99,8 @@ final class AdminMechanicsController
     {
         $mechanic->delete();
 
-        return redirect()->route('admin.mechanics.index');
+        return redirect()->route('admin.mechanics.index')
+            ->with('successful mechanic delete', 'Вы успешно удалили работника!');
     }
 
     public function edit(Mechanic $mechanic)

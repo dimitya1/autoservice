@@ -9,6 +9,16 @@
     </div>
     <br>
     <div class="container" style="margin-left: auto; margin-right: auto">
+        @if(Session::has('successful mechanic delete'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('successful mechanic delete') }}
+            </div>
+        @endif
+        @if(Session::has('successful mechanic create'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('successful mechanic create') }}
+            </div>
+        @endif
         @if(Session::has('duplicate email'))
             <div class="alert alert-warning" role="alert">
                 {{ Session::get('duplicate email') }}
@@ -19,7 +29,8 @@
                 {{ Session::get('successful mechanic update') }}
             </div>
         @endif
-        <div class="btn-group" style="margin-bottom: 20px; margin-top: 20px">
+        <p><a href="{{ route('admin.mechanics.create') }}" class="btn btn-lg btn-success" style="margin-top: 10px">Добавить нового механика</a></p>
+        <div class="btn-group" style="margin-bottom: 20px; margin-top: 10px">
             <button type="button" class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                 Сортировать

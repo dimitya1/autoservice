@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminMechanicsController;
+use App\Http\Controllers\AdminToolsController;
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
@@ -64,11 +65,19 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/admin/users', [AdminUsersController::class, 'index'])->name('admin.users.index');
 
+        Route::get('/admin/users/create', [AdminUsersController::class, 'create'])->name('admin.users.create');
+
+        Route::post('/admin/users', [AdminUsersController::class, 'store'])->name('admin.users.store');
+
         Route::get('/admin/users/{user}', [AdminUsersController::class, 'show'])->name('admin.users.show');
 
         Route::delete('/admin/users/{user}', [AdminUsersController::class, 'destroy'])->name('admin.users.destroy');
 
         Route::get('/admin/all_mechanics/{orderBy?}', [AdminMechanicsController::class, 'index'])->name('admin.mechanics.index');
+
+        Route::get('/admin/mechanics/create', [AdminMechanicsController::class, 'create'])->name('admin.mechanics.create');
+
+        Route::post('/admin/mechanics', [AdminMechanicsController::class, 'store'])->name('admin.mechanics.store');
 
         Route::get('/admin/mechanics/{mechanic}', [AdminMechanicsController::class, 'show'])->name('admin.mechanics.show');
 
@@ -77,5 +86,19 @@ Route::middleware('auth')->group(function () {
         Route::patch('/admin/mechanics/{mechanic}', [AdminMechanicsController::class, 'update'])->name('admin.mechanics.update');
 
         Route::delete('/admin/mechanics/{mechanic}', [AdminMechanicsController::class, 'destroy'])->name('admin.mechanics.destroy');
+
+        Route::get('/admin/tools', [AdminToolsController::class, 'index'])->name('admin.tools.index');
+
+        Route::get('/admin/tools/create', [AdminToolsController::class, 'create'])->name('admin.tools.create');
+
+        Route::post('/admin/tools', [AdminToolsController::class, 'store'])->name('admin.tools.store');
+
+        Route::get('/admin/tools/{tool}', [AdminToolsController::class, 'show'])->name('admin.tools.show');
+
+        Route::get('/admin/tools/{tool}/edit', [AdminToolsController::class, 'edit'])->name('admin.tools.edit');
+
+        Route::patch('/admin/tools/{tool}', [AdminToolsController::class, 'update'])->name('admin.tools.update');
+
+        Route::delete('/admin/tools/{tool}', [AdminToolsController::class, 'destroy'])->name('admin.tools.destroy');
     });
 });

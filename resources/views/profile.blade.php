@@ -115,7 +115,7 @@
                 @if($authUser->cars->count() > 0)
                     <p><a href="{{ route('request.create') }}" class="btn-lg btn-secondary">Создать заявку</a></p>
                 @endif
-                <a href="{{ route('profile.edit') }}" class="btn btn-warning">Редактировать профиль</a>
+                <p><a href="{{ route('profile.edit') }}" class="btn btn-warning">Редактировать профиль</a></p>
             </div>
             <div class="card-footer">
                 <small class="text-muted">Профиль создан {{ $authUser->created_at->diffForHumans() }}</small>

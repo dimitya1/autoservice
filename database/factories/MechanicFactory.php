@@ -25,7 +25,7 @@ class MechanicFactory extends Factory
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            'mobile_phone' => $this->faker->e164PhoneNumber,
+            'mobile_phone' => '+380' . rand(100000000, 999999999),
             'status' => rand(0, 1),
         ];
     }

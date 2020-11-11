@@ -11,7 +11,7 @@
     <title>@yield('title')</title>
     <style>
         body {
-            background-image: url(../assets/img/background.jpg); /* Путь к фоновому изображению */
+            background-image: url(https://img.freepik.com/vetores-gratis/doodle-de-detalhes-de-servico-de-carro_160308-187.jpg?size=626&ext=jpg); /* Путь к фоновому изображению */
         }
         .map-container{
             overflow:hidden;
