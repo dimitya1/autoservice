@@ -29,7 +29,8 @@
                 {{ Session::get('successful mechanic update') }}
             </div>
         @endif
-        <p><a href="{{ route('admin.mechanics.create') }}" class="btn btn-lg btn-success" style="margin-top: 10px">Добавить нового механика</a></p>
+        <p><a href="{{ route('admin.mechanics.create') }}" class="btn btn-lg btn-success" style="margin-top: 10px">Добавить
+                нового механика</a></p>
         <div class="btn-group" style="margin-bottom: 20px; margin-top: 10px">
             <button type="button" class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -76,6 +77,11 @@
             </div>
         @endif
         <br>
+        @if($orderBy === null)
+            <h3 class="text-center">Все механики</h3>
+        @else
+            <h3 class="text-center">{{ str_replace('_', ' ', $orderBy) }} механики</h3>
+        @endif
         <table class="table">
             <thead class="thead-dark">
             <tr>

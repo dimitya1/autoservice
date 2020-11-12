@@ -14,5 +14,7 @@
         <a href="{{ route('admin.mechanics.index') }}" class="btn btn-danger btn-lg">Механики</a>
         <br>
         <a href="{{ route('admin.tools.index') }}" class="btn btn-danger btn-lg">Инструменты и расходники</a>
+        <br>
+        <a href="{{ route('admin.cars.index') }}" class="btn btn-danger btn-lg">Автомобили</a>
     </div>
 @endsection

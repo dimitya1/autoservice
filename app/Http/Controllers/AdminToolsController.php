@@ -68,11 +68,7 @@ final class AdminToolsController
             ->whereBetween('repair_tool.updated_at', [$startOfMonth, $endOfMonth])
             ->join('repair_tool', 'tools.id', '=', 'tool_id')
             ->join('repairs', 'repair_tool.repair_id', '=', 'repairs.id')->sum('repair_tool.used_quantity');
-//        foreach ($tool->repairs as $toolRepair) {
-//            var_dump('1');
-//            $totalUsedQuantity = $totalUsedQuantity + $toolRepair->pivot->used_quantity;
-//        }
-//        var_dump($totalUsedQuantity);
+
         return view('admin-one_tool', ['tool' => $tool,
             'totalUsedQuantityThisMonth' => $totalUsedQuantityThisMonth,
             'totalUsedQuantityLastMonth' => $totalUsedQuantityLastMonth

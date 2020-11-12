@@ -48,7 +48,7 @@ final class AdminMechanicsController
                 $mechanics = Mechanic::orderBy('created_at', 'desc')->where('status', '=', 1)->get();
                 break;
         }
-        return view('admin-mechanics', ['mechanics' => $mechanics, 'bestMechanic' => $bestMechanic, 'bestMechanicLastMonth' => $bestMechanicLastMonth]);
+        return view('admin-mechanics', ['mechanics' => $mechanics, 'orderBy' => $orderBy, 'bestMechanic' => $bestMechanic, 'bestMechanicLastMonth' => $bestMechanicLastMonth]);
     }
 
     public function create()

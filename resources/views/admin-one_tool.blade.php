@@ -29,12 +29,12 @@
             </div>
             <div class="card-footer text-muted">
                 @if($totalUsedQuantityThisMonth !== 0)
-                    <h3>Использовано в прошлом месяце <span
+                    <h3>Использовано в этом месяце <span
                             class="badge badge-secondary">{{ $totalUsedQuantityThisMonth }}</span>
                     </h3>
                 @endif
                 @if($totalUsedQuantityLastMonth !== 0)
-                    <h3>Использовано этом месяце <span
+                    <h3>Использовано в прошлом месяце <span
                             class="badge badge-primary">{{ $totalUsedQuantityThisMonth }}</span></h3>
                 @endif
             </div>

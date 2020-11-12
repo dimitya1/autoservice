@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCarsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminMechanicsController;
 use App\Http\Controllers\AdminToolsController;
@@ -100,5 +101,13 @@ Route::middleware('auth')->group(function () {
         Route::patch('/admin/tools/{tool}', [AdminToolsController::class, 'update'])->name('admin.tools.update');
 
         Route::delete('/admin/tools/{tool}', [AdminToolsController::class, 'destroy'])->name('admin.tools.destroy');
+
+        Route::get('/admin/all_cars/{orderBy?}', [AdminCarsController::class, 'index'])->name('admin.cars.index');
+
+        Route::get('/admin/cars/create', [AdminCarsController::class, 'create'])->name('admin.cars.create');
+
+        Route::post('/admin/cars', [AdminCarsController::class, 'store'])->name('admin.cars.store');
+
+        Route::delete('/admin/cars/{car}', [AdminCarsController::class, 'destroy'])->name('admin.cars.destroy');
     });
 });
