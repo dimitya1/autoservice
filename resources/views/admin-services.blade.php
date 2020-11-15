@@ -32,10 +32,10 @@
             <div class="row">
                 <div class="col-2">
                     <div class="btn-group-vertical">
-                        @foreach($buttonsNormal as $buttonNormal)
-                            <a href="{{ route('admin.services.index', ['category' => str_replace(' ', '_', $buttonNormal)]) }}"
-                               class="{{ $buttons[str_replace(' ', '_', $buttonNormal)] }}" role="button"
-                               aria-pressed="true">{{ $buttonNormal }}</a>
+                        @foreach(array_keys($categoriesWithButtons) as $category)
+                            <a href="{{ route('admin.services.index', ['category' => str_replace(' ', '_', $category)]) }}"
+                               class="{{ $categoriesWithButtons[$category] }}" role="button"
+                               aria-pressed="true">{{ $category }}</a>
                         @endforeach
                     </div>
                 </div>
@@ -76,6 +76,7 @@
             </div>
             <br>
         </div>
-        <br>
-        <br>
+    </div>
+    <br>
+    <br>
 @endsection

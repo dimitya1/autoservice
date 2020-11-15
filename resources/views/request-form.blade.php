@@ -66,7 +66,7 @@
                 <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="car">
                     <option selected style="font-style: italic">Выберите автомобиль</option>
                     @foreach($cars as $car)
-                        <option>{{ $car->make . ' ' . $car->model . ' ' . $car->year }}</option>
+                        <option>{{ $car->make . ' ' . $car->model . ' ' . $car->year . '      ' . $car->vin }}</option>
                     @endforeach
                 </select>
             </div>

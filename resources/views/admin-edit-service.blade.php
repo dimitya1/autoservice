@@ -32,7 +32,6 @@
                 <label for="category">Категория</label>
                 <input type="category" name="category" class="form-control"
                        value="{{ old('category', $service->category) }}">
-                <small id="quantityHelp" class="form-text text-muted">Только цифры.</small>
             </div>
 
             <div class="form-group">

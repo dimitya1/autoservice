@@ -89,7 +89,7 @@
         </div>
     </div>
     <div class="footer-copyright text-center py-3" id="bg">© 2020 Copyright:
-        <a href="#"> autoservice.com</a>
+        <a href="{{ route('home') }}"> autoservice.com</a>
     </div>
 </footer>
 <!-- Optional JavaScript -->
