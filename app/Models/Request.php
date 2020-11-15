@@ -15,9 +15,9 @@ class Request extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function worklists()
+    public function services()
     {
-        return $this->belongsToMany(Worklist::class)->withTimestamps();
+        return $this->belongsToMany(Service::class)->withTimestamps();
     }
 
     public function repairs()

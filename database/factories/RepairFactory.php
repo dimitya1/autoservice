@@ -5,7 +5,7 @@ namespace Database\Factories;
 use App\Models\Mechanic;
 use App\Models\Repair;
 use App\Models\Request;
-use App\Models\Worklist;
+use App\Models\Service;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -28,7 +28,7 @@ class RepairFactory extends Factory
     {
         return [
             'request_id' => Request::factory(),
-            'worklist_id' => Worklist::factory(),
+            'service_id' => Service::factory(),
             'mechanic_id' => Mechanic::factory(),
             'result' => $this->faker->realText(150),
             'status' => rand(0, 1),

@@ -6,7 +6,7 @@ use App\Models\Car;
 use App\Models\Mechanic;
 use App\Models\Repair;
 use App\Models\Request;
-use App\Models\Worklist;
+use App\Models\Service;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -16,7 +16,7 @@ final class ServiceController
     public function index($category = null)
     {
         $category = str_replace('_', ' ', $category);
-        $worklists = DB::table('worklists')->where('category', '=', $category)->get();
+        $services = DB::table('services')->where('category', '=', $category)->get();
 
         $buttons = [
             'Выхлопная_система' => 'btn btn-secondary',
@@ -74,7 +74,7 @@ final class ServiceController
                 break;
         }
 
-        return view('services', ['worklists' => $worklists, 'buttons' => $buttons, 'buttonsNormal' => $buttonsNormal]);
+        return view('services', ['services' => $services, 'buttons' => $buttons, 'buttonsNormal' => $buttonsNormal]);
     }
 
     public function create()
@@ -85,7 +85,7 @@ final class ServiceController
 
         $cars = auth()->user()->cars->all();
 
-        $categories = Worklist::all()->pluck('category')->unique()->toArray();
+        $categories = Service::all()->pluck('category')->unique()->toArray();
 
         return view('request-form', ['cars' => $cars, 'categories' => $categories ]);
     }
@@ -99,7 +99,7 @@ final class ServiceController
         $works = request()->keys();
 
         if ($works[2] === null || $works[2] === 'description') {
-            return redirect()->route('request.create')->withErrors(['no worklist selected' => 'Проверьте, выбрали ли Вы работы по автомобилю']);
+            return redirect()->route('request.create')->withErrors(['no service selected' => 'Проверьте, выбрали ли Вы необходимые услуги']);
         }
 
         $carData = explode(" ", \request()->get('car'));;
@@ -124,9 +124,9 @@ final class ServiceController
             $normalWorks[] = str_replace('_', ' ', $work);
         }
 
-        foreach (Worklist::all() as $worklist) {
-            if (in_array($worklist->name, $normalWorks)) {
-                $worklist->requests()->attach($request->id);
+        foreach (Service::all() as $service) {
+            if (in_array($service->name, $normalWorks)) {
+                $service->requests()->attach($request->id);
             }
         }
 
@@ -134,17 +134,17 @@ final class ServiceController
 
         $randomMechanicWithoutWork = $mechanicsWithoutWork->random();
 
-        $requestWorklists = Worklist::whereHas('requests', function ($q) use ($request) {
+        $requestServices = Service::whereHas('requests', function ($q) use ($request) {
             $q->where('request_id', '=', $request->id);
         })->get();
 
         $sumToPay = 0;
 
-        foreach ($requestWorklists as $requestWorklist) {
-            $sumToPay = $sumToPay + $requestWorklist->price;
+        foreach ($requestServices as $requestService) {
+            $sumToPay = $sumToPay + $requestService->price;
             $repair = new Repair();
             $repair->request_id = $request->id;
-            $repair->worklist_id = $requestWorklist->id;
+            $repair->service_id = $requestService->id;
             $repair->mechanic_id = $randomMechanicWithoutWork->id ?? Mechanic::all()->pluck('id')->random();
             $repair->status = 0;
             $repair->save();

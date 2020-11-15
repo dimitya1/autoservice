@@ -77,6 +77,7 @@ final class AdminToolsController
 
     public function destroy(Tool $tool)
     {
+        $tool->repairs()->detach();
         $tool->delete();
 
         return redirect()->route('admin.tools.index')

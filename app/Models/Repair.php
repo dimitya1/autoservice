@@ -25,8 +25,8 @@ class Repair extends Model
         return $this->belongsTo(Mechanic::class);
     }
 
-    public function worklist()
+    public function service()
     {
-        return $this->belongsTo(Worklist::class);
+        return $this->belongsTo(Service::class);
     }
 }

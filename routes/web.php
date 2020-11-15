@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminCarsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminMechanicsController;
+use App\Http\Controllers\AdminServicesController;
 use App\Http\Controllers\AdminToolsController;
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\AuthController;
@@ -61,7 +62,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/repairs', [RepairController::class, 'index'])->name('repairs.index');
 
-    Route::middleware(CheckAdmin::class)->group(function () {
+    Route::middleware('admin')->group(function () {
         Route::get('/admin', AdminController::class)->name('admin.panel');
 
         Route::get('/admin/users', [AdminUsersController::class, 'index'])->name('admin.users.index');
@@ -109,5 +110,17 @@ Route::middleware('auth')->group(function () {
         Route::post('/admin/cars', [AdminCarsController::class, 'store'])->name('admin.cars.store');
 
         Route::delete('/admin/cars/{car}', [AdminCarsController::class, 'destroy'])->name('admin.cars.destroy');
+
+        Route::get('/admin/all_services/{category?}', [AdminServicesController::class, 'index'])->name('admin.services.index');
+
+        Route::get('/admin/services/create', [AdminServicesController::class, 'create'])->name('admin.services.create');
+
+        Route::post('/admin/services', [AdminServicesController::class, 'store'])->name('admin.services.store');
+
+        Route::get('/admin/services/{service}/edit', [AdminServicesController::class, 'edit'])->name('admin.services.edit');
+
+        Route::patch('/admin/services/{service}', [AdminServicesController::class, 'update'])->name('admin.services.update');
+
+        Route::delete('/admin/services/{service}', [AdminServicesController::class, 'destroy'])->name('admin.services.destroy');
     });
 });

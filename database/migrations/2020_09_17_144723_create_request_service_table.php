@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRequestWorklistTable extends Migration
+class CreateRequestServiceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateRequestWorklistTable extends Migration
      */
     public function up()
     {
-        Schema::create('request_worklist', function (Blueprint $table) {
+        Schema::create('request_service', function (Blueprint $table) {
             $table->foreignId('request_id');
-            $table->foreignId('worklist_id');
+            $table->foreignId('service_id');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateRequestWorklistTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('request_worklist');
+        Schema::dropIfExists('request_service');
     }
 }

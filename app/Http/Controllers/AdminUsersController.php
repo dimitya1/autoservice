@@ -84,6 +84,7 @@ final class AdminUsersController
 
     public function destroy(User $user)
     {
+        $user->cars()->delete();
         $user->delete();
 
         return redirect()->route('admin.users.index')

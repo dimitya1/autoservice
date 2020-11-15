@@ -66,7 +66,7 @@
             @foreach($repairs as $repair)
                 <tr>
                     <td>{{ $repair->request->car->make . ' ' . $repair->request->car->model . ' ' . $repair->request->car->year}}</td>
-                    <td style="max-width: 200px">{{ $repair->worklist->name }}</td>
+                    <td style="max-width: 200px">{{ $repair->service->name ?? null}}</td>
                     <td>{{ $repair->mechanic->name }}</td>
                     <td>{{ $repair->mechanic->mobile_phone }}</td>
                     @if(\Illuminate\Support\Carbon::parse($repair->request->date)->gt(\Illuminate\Support\Carbon::now()) && $repair->status === 0)

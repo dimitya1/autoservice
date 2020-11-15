@@ -72,7 +72,7 @@
             </div>
 
             <div class="form-group">
-                @error('no worklist selected')
+                @error('no service selected')
                 <div class="alert alert-danger" role="alert">
                     {{ $message }}
                 </div>
@@ -80,9 +80,9 @@
                 <div class="form-check">
                     @foreach($categories as $category)
                         <h1>{{ $category }}</h1>
-                        @foreach( \App\Models\Worklist::where('category', '=', $category)->get() as $worklist)
-                            <input class="form-check-input" type="checkbox" value="{{ $worklist->name }}" id="invalidCheck2" name="{{ $worklist->name }}">
-                            <p><label class="form-check-label" for="invalidCheck2">{{ $worklist->name . ' ' . $worklist->price . 'грн'}}</label></p>
+                        @foreach( \App\Models\Service::where('category', '=', $category)->get() as $service)
+                            <input class="form-check-input" type="checkbox" value="{{ $service->name }}" id="invalidCheck2" name="{{ $service->name }}">
+                            <p><label class="form-check-label" for="invalidCheck2">{{ $service->name . ' ' . $service->price . 'грн'}}</label></p>
                         @endforeach
                     @endforeach
                 </div>

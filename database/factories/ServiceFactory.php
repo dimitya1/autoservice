@@ -2,19 +2,19 @@
 
 namespace Database\Factories;
 
-use App\Models\Worklist;
-use App\Resources\Worklists;
+use App\Models\Service;
+use App\Resources\Services;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class WorklistFactory extends Factory
+class ServiceFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Worklist::class;
+    protected $model = Service::class;
 
     /**
      * Define the model's default state.

@@ -8,7 +8,7 @@ use App\Models\Repair;
 use App\Models\Request;
 use App\Models\Tool;
 use App\Models\User;
-use App\Models\Worklist;
+use App\Models\Service;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         User::factory(1)->create(['is_admin' => 1, 'email' => 'admin@email.com']);//Creating one admin
 
         $mechanics = Mechanic::factory()->count(10)->create();
-        DB::table('worklists')->insert([
+        DB::table('services')->insert([
             ['price' => 200, 'name' => 'Замена масла в двигателе', 'category' => 'Сервисное ТО', 'created_at' => now(), 'updated_at' => now()],
             ['price' => 200, 'name' => 'Компьютерная диагностика', 'category' => 'Сервисное ТО', 'created_at' => now(), 'updated_at' => now()],
             ['price' => 80, 'name' => 'Замена воздушного фильтра двигателя', 'category' => 'Сервисное ТО', 'created_at' => now(), 'updated_at' => now()],
@@ -183,22 +183,22 @@ class DatabaseSeeder extends Seeder
             ['price' => 630, 'name' => 'Снятие-установка раздаточной коробки', 'category' => 'Трансмиссия', 'created_at' => now(), 'updated_at' => now()],
         ]);
 
-        $worklists = Worklist::all();
+        $services = Service::all();
         $tools = Tool::factory()->count(250)->create();
         $mechanicIds = $mechanics->pluck('id');
 
-        User::factory()->count(50)->create()->each(function ($user) use ($tools, $mechanicIds, $worklists) {
+        User::factory()->count(50)->create()->each(function ($user) use ($tools, $mechanicIds, $services) {
             $cars = Car::factory()->count(rand(1, 3))->create(['user_id' => $user->id]);
             $cars->shuffle();
             $shuffledCarsIds = $cars->pluck('id');
             Request::factory()->count(rand(1, 2))
                 ->create(['user_id' => $user->id, 'car_id' => $shuffledCarsIds->random()])
-                ->each(function ($request) use ($tools, $mechanicIds, $worklists) {
-                    $randRequestWorklist = rand(1, 5);
-                    $request->worklists()->attach($worklists->pluck('id')->random($randRequestWorklist));
-                    Repair::factory()->count($randRequestWorklist)->create(
+                ->each(function ($request) use ($tools, $mechanicIds, $services) {
+                    $randRequestService = rand(1, 5);
+                    $request->services()->attach($services->pluck('id')->random($randRequestService));
+                    Repair::factory()->count($randRequestService)->create(
                         ['request_id' => $request->id, 'mechanic_id' => $mechanicIds->random(),
-                            'worklist_id' => $worklists->pluck('id')->random(), 'status' => $request->status]
+                            'service_id' => $services->pluck('id')->random(), 'status' => $request->status]
                     )->each(function ($repair) use ($tools) {
                         $repair->tools()->attach($tools->pluck('id')->random(rand(1, 10)), ['used_quantity' => rand(0, 15)]);
                     });

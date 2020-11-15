@@ -19,20 +19,20 @@ final class AdminMechanicsController
         $startOfMonth = Carbon::now()->startOfMonth()->format('Y-m-d H:i:s');
         $endOfMonth = Carbon::now()->endOfMonth()->format('Y-m-d H:i:s');
 
-        $bestMechanicLastMonth = DB::select("SELECT mechanics.email, mechanics.name, SUM(worklists.price) AS sum
+        $bestMechanicLastMonth = DB::select("SELECT mechanics.email, mechanics.name, SUM(services.price) AS sum
                     FROM mechanics
                         INNER JOIN (SELECT * FROM repairs WHERE created_at BETWEEN '$startOfLastMonth' AND '$endOfLastMonth' AND status = 1)
                          AS r ON mechanics.id = r.mechanic_id
-                            INNER JOIN worklists ON worklists.id = r.worklist_id
+                            INNER JOIN services ON services.id = r.service_id
                                 GROUP BY mechanics.email
                                     ORDER BY sum DESC
                                         LIMIT 1");
 
-        $bestMechanic = DB::select("SELECT mechanics.email, mechanics.name, SUM(worklists.price) AS sum
+        $bestMechanic = DB::select("SELECT mechanics.email, mechanics.name, SUM(services.price) AS sum
                     FROM mechanics
                         INNER JOIN (SELECT * FROM repairs WHERE created_at BETWEEN '$startOfMonth' AND '$endOfMonth' AND status = 1)
                          AS r ON mechanics.id = r.mechanic_id
-                            INNER JOIN worklists ON worklists.id = r.worklist_id
+                            INNER JOIN services ON services.id = r.service_id
                                 GROUP BY mechanics.email
                                     ORDER BY sum DESC
                                         LIMIT 1");

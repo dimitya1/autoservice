@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Добавление нового автомобиля')
+@section('title', 'Добавление новой услуги')
 
 @section('content')
     <div class="container">
@@ -49,86 +49,38 @@
 
 
     <div class="container" style="margin-bottom: 90px">
-        @if(Session::has('duplicate vin'))
-            <div class="alert alert-danger" role="alert">
-                {{ Session::get('duplicate vin') }}
-            </div>
-            <br>
-        @endif
-        @if(Session::has('user not found'))
-            <div class="alert alert-danger" role="alert">
-                {{ Session::get('user not found') }}
-            </div>
-            <br>
-        @endif
-        @if(Session::has('old car'))
-            <div class="alert alert-danger" role="alert">
-                {{ Session::get('old car') }}
-            </div>
-            <br>
-        @endif
-        <form method="post" action="{{ route('admin.cars.store') }}">
+        <form method="post" action="{{ route('admin.services.store') }}">
             @csrf
 
             <div class="form-group">
-                @error('email')
+                @error('name2')
                 <div class="alert alert-danger" role="alert">
                     {{ $message }}
                 </div>
                 @enderror
-                <label for="email">E-mail клиента</label>
-                <input type="email" name="email" class="form-control">
+                <label for="name2">Название</label>
+                <input type="name2" name="name2" class="form-control">
             </div>
 
             <div class="form-group">
-                @error('make')
+                @error('category')
                 <div class="alert alert-danger" role="alert">
                     {{ $message }}
                 </div>
                 @enderror
-                <label for="make">Марка</label>
-                <input type="make" name="make" class="form-control">
+                <label for="category">Категория</label>
+                <input type="category" name="category" class="form-control">
             </div>
 
             <div class="form-group">
-                @error('model')
+                @error('price')
                 <div class="alert alert-danger" role="alert">
                     {{ $message }}
                 </div>
                 @enderror
-                <label for="model">Модель</label>
-                <input type="model" name="model" class="form-control">
-            </div>
-
-            <div class="form-group">
-                @error('year')
-                <div class="alert alert-danger" role="alert">
-                    {{ $message }}
-                </div>
-                @enderror
-                <label for="year">Год выпуска</label>
-                <input type="year" name="year" class="form-control">
-            </div>
-
-            <div class="form-group">
-                @error('colour')
-                <div class="alert alert-danger" role="alert">
-                    {{ $message }}
-                </div>
-                @enderror
-                <label for="colour">Цвет</label>
-                <input type="colour" name="colour" class="form-control">
-            </div>
-
-            <div class="form-group">
-                @error('vin')
-                <div class="alert alert-danger" role="alert">
-                    {{ $message }}
-                </div>
-                @enderror
-                <label for="vin">vin-код</label>
-                <input type="vin" name="vin" class="form-control">
-                <small id="vinHelp" class="form-text text-muted">Пожалуйста, веедите правильный vin-номер.</small>
+                <label for="price">Стоимость, грн</label>
+                <input type="price" name="price" class="form-control">
+                <small id="quantityHelp" class="form-text text-muted">Только цифры.</small>
             </div>
 
             <button type="submit" class="btn btn-success">Добавить</button>
