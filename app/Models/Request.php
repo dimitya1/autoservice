@@ -8,25 +8,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Request extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function services()
     {
-        return $this->belongsToMany(Service::class)->withTimestamps();
+        return $this->belongsToMany(Service::class)->withTimestamps()->withTrashed();
     }
 
     public function repairs()
     {
-        return $this->hasMany(Repair::class);
+        return $this->hasMany(Repair::class)->withTrashed();
     }
 
     public function car()
     {
-        return $this->belongsTo(Car::class);
+        return $this->belongsTo(Car::class)->withTrashed();
     }
 }

@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Service extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     public function requests()
     {
-        return $this->belongsToMany(Request::class)->withTimestamps();
+        return $this->belongsToMany(Request::class)->withTimestamps()->withTrashed();
     }
 
     public function repairs()
     {
-        return $this->hasMany(Repair::class);
+        return $this->hasMany(Repair::class)->withTrashed();
     }
 }

@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -41,16 +41,16 @@ class User extends Authenticatable
 
     public function cars()
     {
-        return $this->hasMany(Car::class);
+        return $this->hasMany(Car::class)->withTrashed();
     }
 
     public function requests()
     {
-        return $this->hasMany(Request::class);
+        return $this->hasMany(Request::class)->withTrashed();
     }
 
     public function repairs()
     {
-        return $this->hasManyThrough(Repair::class, Request::class);
+        return $this->hasManyThrough(Repair::class, Request::class)->withTrashed();
     }
 }

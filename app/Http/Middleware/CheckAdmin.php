@@ -18,8 +18,7 @@ class CheckAdmin
     {
         if (auth()->user()->is_admin === 0) {
             return redirect()
-                ->route('home')
-                ->withErrors(['not allowed' => 'Вы не админ.']);
+                ->route('home');
         }
         return $next($request);
     }

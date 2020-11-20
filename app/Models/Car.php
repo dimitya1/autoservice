@@ -8,20 +8,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Car extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function requests()
     {
-        return $this->hasMany(Request::class);
+        return $this->hasMany(Request::class)->withTrashed();
     }
 
     public function repairs()
     {
-        return $this->hasManyThrough(Repair::class, Request::class);
+        return $this->hasManyThrough(Repair::class, Request::class)->withTrashed();
     }
 }

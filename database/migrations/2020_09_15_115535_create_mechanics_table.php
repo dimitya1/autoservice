@@ -20,6 +20,7 @@ class CreateMechanicsTable extends Migration
             $table->string('mobile_phone');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

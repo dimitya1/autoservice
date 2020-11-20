@@ -19,6 +19,7 @@ class CreateToolsTable extends Migration
             $table->text('description')->nullable();
             $table->integer('quantity');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

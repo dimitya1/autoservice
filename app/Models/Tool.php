@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tool extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     public function repairs()
     {
-        return $this->belongsToMany(Repair::class)->withPivot('used_quantity')->withTimestamps();
+        return $this->belongsToMany(Repair::class)->withPivot('used_quantity')->withTimestamps()->withTrashed();
     }
 }

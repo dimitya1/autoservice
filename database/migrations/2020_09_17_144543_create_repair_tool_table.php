@@ -14,10 +14,12 @@ class CreateRepairToolTable extends Migration
     public function up()
     {
         Schema::create('repair_tool', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('tool_id');
             $table->foreignId('repair_id');
             $table->integer('used_quantity')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

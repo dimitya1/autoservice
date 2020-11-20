@@ -8,25 +8,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Repair extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     public function request()
     {
-        return $this->belongsTo(Request::class);
+        return $this->belongsTo(Request::class)->withTrashed();
     }
 
     public function tools()
     {
-        return $this->belongsToMany(Tool::class)->withPivot('used_quantity')->withTimestamps();
+        return $this->belongsToMany(Tool::class)->withPivot('used_quantity')->withTimestamps()->withTrashed();
     }
 
     public function mechanic()
     {
-        return $this->belongsTo(Mechanic::class);
+        return $this->belongsTo(Mechanic::class)->withTrashed();
     }
 
     public function service()
     {
-        return $this->belongsTo(Service::class);
+        return $this->belongsTo(Service::class)->withTrashed();
     }
 }

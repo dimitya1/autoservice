@@ -14,9 +14,11 @@ class CreateRequestServiceTable extends Migration
     public function up()
     {
         Schema::create('request_service', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('request_id');
             $table->foreignId('service_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

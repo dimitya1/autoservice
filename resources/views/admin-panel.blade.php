@@ -16,6 +16,9 @@
         <a href="{{ route('admin.tools.index') }}" class="btn btn-danger btn-lg">Инструменты и расходники</a>
         <br>
         <a href="{{ route('admin.cars.index') }}" class="btn btn-danger btn-lg">Автомобили</a>
+        <br>
         <a href="{{ route('admin.services.index') }}" class="btn btn-danger btn-lg">Услуги компании</a>
+        <br>
+        <a href="{{ route('admin.requests.index') }}" class="btn btn-danger btn-lg">Заявки клиентов и работы по ним</a>
     </div>
 @endsection

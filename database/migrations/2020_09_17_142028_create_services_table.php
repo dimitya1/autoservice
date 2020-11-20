@@ -19,6 +19,7 @@ class CreateServicesTable extends Migration
             $table->string('category');
             $table->integer('price');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

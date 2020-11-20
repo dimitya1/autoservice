@@ -101,10 +101,5 @@ final class AdminCarsController
         return redirect()->route('admin.cars.index')
             ->with('successful car delete', 'Вы успешно удалили автомобиль!');
     }
-
-    public function edit(Tool $tool)
-    {
-        return view('admin-edit-tool', ['tool' => $tool]);
-    }
 }
 

@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Mechanic extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     public function repairs()
     {
-        return $this->hasMany(Repair::class);
+        return $this->hasMany(Repair::class)->withTrashed();
     }
 }

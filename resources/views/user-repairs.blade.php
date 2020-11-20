@@ -65,17 +65,17 @@
             <tbody>
             @foreach($repairs as $repair)
                 <tr>
-                    <td>{{ $repair->request->car->make . ' ' . $repair->request->car->model . ' ' . $repair->request->car->year}}</td>
+                    <td>{{ $repair->request->car->make . ' ' . $repair->request->car->model . ' ' . $repair->request->car->year ?? null}}</td>
                     <td style="max-width: 200px">{{ $repair->service->name ?? null}}</td>
-                    <td>{{ $repair->mechanic->name }}</td>
-                    <td>{{ $repair->mechanic->mobile_phone }}</td>
+                    <td>{{ $repair->mechanic->name ?? null }}</td>
+                    <td>{{ $repair->mechanic->mobile_phone ?? null}}</td>
                     @if(\Illuminate\Support\Carbon::parse($repair->request->date)->gt(\Illuminate\Support\Carbon::now()) && $repair->status === 0)
                         <td>{{ 'Приезжайте к нам с ' .
-                            \Illuminate\Support\Carbon::parse($repair->request->date)->format("d.m с h:i") }}</td>
+                            \Illuminate\Support\Carbon::parse($repair->request->date)->format("d.m с h:i") ?? null }}</td>
                     @else
-                        <td>{{ $repair->status ? 'Завершена' : 'В работе'}}</td>
+                        <td>{{ $repair->status ? 'Завершена' : 'В работе' ?? null}}</td>
                     @endif
-                    <td>{{ $repair->created_at }}</td>
+                    <td>{{ $repair->created_at ?? null}}</td>
                 </tr>
             @endforeach
             </tbody>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminCarsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminMechanicsController;
+use App\Http\Controllers\AdminRequestsRepairsController;
 use App\Http\Controllers\AdminServicesController;
 use App\Http\Controllers\AdminToolsController;
 use App\Http\Controllers\AdminUsersController;
@@ -63,64 +64,80 @@ Route::middleware('auth')->group(function () {
     Route::get('/repairs', [RepairController::class, 'index'])->name('repairs.index');
 
     Route::middleware('admin')->group(function () {
-        Route::get('/admin', AdminController::class)->name('admin.panel');
+        Route::prefix('admin')->group(function () {
+            Route::get('', AdminController::class)->name('admin.panel');
 
-        Route::get('/admin/users', [AdminUsersController::class, 'index'])->name('admin.users.index');
+            Route::get('users', [AdminUsersController::class, 'index'])->name('admin.users.index');
 
-        Route::get('/admin/users/create', [AdminUsersController::class, 'create'])->name('admin.users.create');
+            Route::get('users/create', [AdminUsersController::class, 'create'])->name('admin.users.create');
 
-        Route::post('/admin/users', [AdminUsersController::class, 'store'])->name('admin.users.store');
+            Route::post('users', [AdminUsersController::class, 'store'])->name('admin.users.store');
 
-        Route::get('/admin/users/{user}', [AdminUsersController::class, 'show'])->name('admin.users.show');
+            Route::get('users/{user}', [AdminUsersController::class, 'show'])->name('admin.users.show');
 
-        Route::delete('/admin/users/{user}', [AdminUsersController::class, 'destroy'])->name('admin.users.destroy');
+            Route::delete('users/{user}', [AdminUsersController::class, 'destroy'])->name('admin.users.destroy');
 
-        Route::get('/admin/all_mechanics/{orderBy?}', [AdminMechanicsController::class, 'index'])->name('admin.mechanics.index');
+            Route::get('all_mechanics/{orderBy?}', [AdminMechanicsController::class, 'index'])->name('admin.mechanics.index');
 
-        Route::get('/admin/mechanics/create', [AdminMechanicsController::class, 'create'])->name('admin.mechanics.create');
+            Route::get('mechanics/create', [AdminMechanicsController::class, 'create'])->name('admin.mechanics.create');
 
-        Route::post('/admin/mechanics', [AdminMechanicsController::class, 'store'])->name('admin.mechanics.store');
+            Route::post('mechanics', [AdminMechanicsController::class, 'store'])->name('admin.mechanics.store');
 
-        Route::get('/admin/mechanics/{mechanic}', [AdminMechanicsController::class, 'show'])->name('admin.mechanics.show');
+            Route::get('mechanics/{mechanic}', [AdminMechanicsController::class, 'show'])->name('admin.mechanics.show');
 
-        Route::get('/admin/mechanics/{mechanic}/edit', [AdminMechanicsController::class, 'edit'])->name('admin.mechanics.edit');
+            Route::get('mechanics/{mechanic}/edit', [AdminMechanicsController::class, 'edit'])->name('admin.mechanics.edit');
 
-        Route::patch('/admin/mechanics/{mechanic}', [AdminMechanicsController::class, 'update'])->name('admin.mechanics.update');
+            Route::patch('mechanics/{mechanic}', [AdminMechanicsController::class, 'update'])->name('admin.mechanics.update');
 
-        Route::delete('/admin/mechanics/{mechanic}', [AdminMechanicsController::class, 'destroy'])->name('admin.mechanics.destroy');
+            Route::delete('mechanics/{mechanic}', [AdminMechanicsController::class, 'destroy'])->name('admin.mechanics.destroy');
 
-        Route::get('/admin/tools', [AdminToolsController::class, 'index'])->name('admin.tools.index');
+            Route::get('tools', [AdminToolsController::class, 'index'])->name('admin.tools.index');
 
-        Route::get('/admin/tools/create', [AdminToolsController::class, 'create'])->name('admin.tools.create');
+            Route::get('tools/create', [AdminToolsController::class, 'create'])->name('admin.tools.create');
 
-        Route::post('/admin/tools', [AdminToolsController::class, 'store'])->name('admin.tools.store');
+            Route::post('tools', [AdminToolsController::class, 'store'])->name('admin.tools.store');
 
-        Route::get('/admin/tools/{tool}', [AdminToolsController::class, 'show'])->name('admin.tools.show');
+            Route::get('tools/{tool}', [AdminToolsController::class, 'show'])->name('admin.tools.show');
 
-        Route::get('/admin/tools/{tool}/edit', [AdminToolsController::class, 'edit'])->name('admin.tools.edit');
+            Route::get('tools/{tool}/edit', [AdminToolsController::class, 'edit'])->name('admin.tools.edit');
 
-        Route::patch('/admin/tools/{tool}', [AdminToolsController::class, 'update'])->name('admin.tools.update');
+            Route::patch('tools/{tool}', [AdminToolsController::class, 'update'])->name('admin.tools.update');
 
-        Route::delete('/admin/tools/{tool}', [AdminToolsController::class, 'destroy'])->name('admin.tools.destroy');
+            Route::delete('tools/{tool}', [AdminToolsController::class, 'destroy'])->name('admin.tools.destroy');
 
-        Route::get('/admin/all_cars/{orderBy?}', [AdminCarsController::class, 'index'])->name('admin.cars.index');
+            Route::get('all_cars/{orderBy?}', [AdminCarsController::class, 'index'])->name('admin.cars.index');
 
-        Route::get('/admin/cars/create', [AdminCarsController::class, 'create'])->name('admin.cars.create');
+            Route::get('cars/create', [AdminCarsController::class, 'create'])->name('admin.cars.create');
 
-        Route::post('/admin/cars', [AdminCarsController::class, 'store'])->name('admin.cars.store');
+            Route::post('cars', [AdminCarsController::class, 'store'])->name('admin.cars.store');
 
-        Route::delete('/admin/cars/{car}', [AdminCarsController::class, 'destroy'])->name('admin.cars.destroy');
+            Route::delete('cars/{car}', [AdminCarsController::class, 'destroy'])->name('admin.cars.destroy');
 
-        Route::get('/admin/all_services/{category?}', [AdminServicesController::class, 'index'])->name('admin.services.index');
+            Route::get('all_services/{category?}', [AdminServicesController::class, 'index'])->name('admin.services.index');
 
-        Route::get('/admin/services/create', [AdminServicesController::class, 'create'])->name('admin.services.create');
+            Route::get('services/create', [AdminServicesController::class, 'create'])->name('admin.services.create');
 
-        Route::post('/admin/services', [AdminServicesController::class, 'store'])->name('admin.services.store');
+            Route::post('services', [AdminServicesController::class, 'store'])->name('admin.services.store');
 
-        Route::get('/admin/services/{service}/edit', [AdminServicesController::class, 'edit'])->name('admin.services.edit');
+            Route::get('services/{service}/edit', [AdminServicesController::class, 'edit'])->name('admin.services.edit');
 
-        Route::patch('/admin/services/{service}', [AdminServicesController::class, 'update'])->name('admin.services.update');
+            Route::patch('services/{service}', [AdminServicesController::class, 'update'])->name('admin.services.update');
 
-        Route::delete('/admin/services/{service}', [AdminServicesController::class, 'destroy'])->name('admin.services.destroy');
+            Route::delete('services/{service}', [AdminServicesController::class, 'destroy'])->name('admin.services.destroy');
+
+            Route::get('requests', [AdminRequestsRepairsController::class, 'index'])->name('admin.requests.index');
+
+//        Route::get('tools/create', [AdminToolsController::class, 'create'])->name('admin.tools.create');
+//
+//        Route::post('tools', [AdminToolsController::class, 'store'])->name('admin.tools.store');
+//
+//        Route::get('tools/{tool}', [AdminToolsController::class, 'show'])->name('admin.tools.show');
+//
+            Route::get('repairs/{repair}/edit', [AdminRequestsRepairsController::class, 'edit'])->name('admin.repairs.edit');
+//
+            Route::patch('repairs/{repair}', [AdminRequestsRepairsController::class, 'update'])->name('admin.repairs.update');
+//
+//        Route::delete('tools/{tool}', [AdminToolsController::class, 'destroy'])->name('admin.tools.destroy');
+        });
     });
 });

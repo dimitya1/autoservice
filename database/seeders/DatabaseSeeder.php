@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Service;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -195,14 +196,33 @@ class DatabaseSeeder extends Seeder
                 ->create(['user_id' => $user->id, 'car_id' => $shuffledCarsIds->random()])
                 ->each(function ($request) use ($tools, $mechanicIds, $services) {
                     $randRequestService = rand(1, 5);
-                    $request->services()->attach($services->pluck('id')->random($randRequestService));
-                    Repair::factory()->count($randRequestService)->create(
-                        ['request_id' => $request->id, 'mechanic_id' => $mechanicIds->random(),
-                            'service_id' => $services->pluck('id')->random(), 'status' => $request->status]
-                    )->each(function ($repair) use ($tools) {
-                        $repair->tools()->attach($tools->pluck('id')->random(rand(1, 10)), ['used_quantity' => rand(0, 15)]);
-                    });
+                    $randMechanicId = $mechanicIds->random();
+                    for ($i = 0; $i < $randRequestService; $i++) {
+                        $serviceId = $services->pluck('id')->random();
+                        $request->services()->attach($serviceId);
+                        if ($request->status === 1) {
+                            Repair::factory()->create(
+                                ['request_id' => $request->id, 'mechanic_id' => $randMechanicId,
+                                    'service_id' => $serviceId, 'status' => 1]
+                            );
+                        } elseif ($i === 0) {
+                            Repair::factory()->create(
+                                ['request_id' => $request->id, 'mechanic_id' => $randMechanicId,
+                                    'service_id' => $serviceId, 'result' => null, 'status' => 0]
+                            );
+                        } else {
+                            $rand = rand(0, 1);
+                            Repair::factory()->create(
+                                ['request_id' => $request->id, 'mechanic_id' => $randMechanicId,
+                                    'service_id' => $serviceId, 'result' => $rand ? Str::random(15) : null, 'status' => $rand]
+                            );
+                        }
+                    }
                 });
+        });
+        $repairs = Repair::all();
+        $repairs->each(function ($repair) use ($tools) {
+            $repair->tools()->attach($tools->pluck('id')->random(rand(0, 3)), ['used_quantity' => rand(0, 15)]);
         });
     }
 }
