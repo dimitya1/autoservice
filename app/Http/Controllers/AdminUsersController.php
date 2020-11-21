@@ -30,9 +30,6 @@ final class AdminUsersController
                     'string',
                     'min:6',
                     'max:45',
-                    'regex:/[a-z]/',
-                    'regex:/[A-Z]/',
-                    'regex:/[0-9]/',
                 ],
             ]
         );
@@ -70,8 +67,10 @@ final class AdminUsersController
         $startOfMonth = Carbon::now()->startOfMonth()->format('Y-m-d H:i:s');
         $endOfMonth = Carbon::now()->endOfMonth()->format('Y-m-d H:i:s');
 
-        $newUsersCount = DB::table('users')->whereBetween('created_at', [$startOfMonth, $endOfMonth])->count();
-        $newUsersLastMonthCount = DB::table('users')->whereBetween('created_at', [$startOfLastMonth, $endOfLastMonth])->count();
+        $newUsersCount = DB::table('users')->whereBetween('created_at', [$startOfMonth, $endOfMonth])
+            ->where('deleted_at', null)->count();
+        $newUsersLastMonthCount = DB::table('users')->whereBetween('created_at', [$startOfLastMonth, $endOfLastMonth])
+            ->where('deleted_at', null)->count();
 
         $users = User::orderBy('created_at', 'desc')->get();
         return view('admin-users', ['users' => $users, 'newUsersCount' => $newUsersCount, 'newUsersLastMonthCount' => $newUsersLastMonthCount]);

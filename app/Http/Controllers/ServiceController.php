@@ -37,7 +37,7 @@ final class ServiceController
             return view('car-create-form')->withErrors(['no cars' => 'Для начала добавьте Ваш автомобиль!']);
         }
 
-        $cars = auth()->user()->cars->all();
+        $cars = Car::where('user_id', auth()->id())->where('deleted_at', NULL)->get();
 
         $categories = Service::all()->pluck('category')->unique()->toArray();
 
@@ -109,7 +109,7 @@ final class ServiceController
 
         return redirect()->route('profile')->with(
             ['created request' => 'Заявка успешно добавлена. Приезжайте к нам с ' .
-                Carbon::parse($request->date)->format("d.m с h:i") . ' Примерная стоимость услуг - ' .  $sumToPay . 'грн.']);
+                Carbon::parse($request->date)->format("d.m с h:i") . ' Примерная стоимость услуг - от ' .  $sumToPay . 'грн.']);
     }
 }
 

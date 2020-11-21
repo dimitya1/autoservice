@@ -127,6 +127,8 @@ Route::middleware('auth')->group(function () {
 
             Route::get('requests', [AdminRequestsRepairsController::class, 'index'])->name('admin.requests.index');
 
+            Route::get('requests/word-export/{request}', [AdminRequestsRepairsController::class, 'document'])->name('document');
+
 //        Route::get('tools/create', [AdminToolsController::class, 'create'])->name('admin.tools.create');
 //
 //        Route::post('tools', [AdminToolsController::class, 'store'])->name('admin.tools.store');

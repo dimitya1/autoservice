@@ -29,7 +29,7 @@
                 <button type="button" class="btn btn-info" data-toggle="popover"
                         style="width: 340px; margin-top: 30px"
                         title="Чтобы посотреть подробную информацию о заявке, просто счёлкните на неё."
-                        data-content="Зелёным цветом отображаются уже закрытые заявки. Серым цветом отображаются заявки, работы по которым ещё не выполнены.
+                        data-content="Зелёным цветом отображаются уже закрытые заявки. Для зелёных заявок можно сформировать документ. Серым цветом отображаются заявки, работы по которым ещё не выполнены.
                 Если цвет синий, то работа кипит, и её прогресс можно увидеть.">Как оно работает
                 </button>
             </div>
@@ -110,6 +110,10 @@
                                 выполнена {{ $requestRepair->updated_at ?? null }}</a>
                         @endif
                     @endforeach
+                    @if($request->status === 1)
+                        <p><a href="{{ route('document', ['request' => $request]) }}"
+                           class="btn btn-info btn-lg" style="margin-bottom: 15px">Создать документ</a></p>
+                    @endif
                 </div>
                 <div class="card-footer text-muted" style="text-align: center">
                     @if($request->status === 1)

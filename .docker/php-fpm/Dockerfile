@@ -4,7 +4,12 @@ RUN apt update
 
 RUN apt install libpq-dev -y
 
-RUN apt-get install -qq git curl libmcrypt-dev libjpeg-dev libpng-dev libfreetype6-dev libbz2-dev libzip-dev
+RUN apt-get install zip unzip
+
+RUN apt-get install -qq git curl libmcrypt-dev libzip-dev libjpeg-dev libpng-dev libfreetype6-dev libbz2-dev libzip-dev
+
+RUN docker-php-ext-configure zip
+RUN docker-php-ext-install zip
 
 RUN apt-get clean
 

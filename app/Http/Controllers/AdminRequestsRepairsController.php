@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mechanic;
 use App\Models\Repair;
+use App\Models\Service;
 use App\Models\Tool;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use NumberFormatter;
+use PhpOffice\PhpWord\Element\TextRun;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 final class AdminRequestsRepairsController
 {
@@ -57,6 +64,44 @@ final class AdminRequestsRepairsController
     public function edit(Repair $repair)
     {
         return view('admin-finish-repair', ['repair' => $repair]);
+    }
+
+    public function document(\App\Models\Request $request) {
+        $requestServices = Service::whereHas('requests', function ($q) use ($request) {
+            $q->where('request_id', '=', $request->id);
+        })->get();
+
+        $sumToPay = 0;
+
+        foreach ($requestServices as $requestService) {
+            $sumToPay += $requestService->price;
+        }
+        $f = new \NumberFormatter('ru_RU', NumberFormatter::SPELLOUT);
+
+        $totalSumInText = $f->format($sumToPay);
+
+        $month = Carbon::parse($request->updated_at)->translatedFormat('F');
+        if ($month === 'март' || $month === 'август')
+            $month .= 'а';
+        else $month = Str::limit($month, Str::length($month)-1, 'я');
+
+        $clientInitials = explode(" ", $request->user->name);
+        $clientInitials[1] = Str::limit($clientInitials[1], 1, '.');
+        $clientInitials[2] = Str::limit($clientInitials[2], 1, '.');
+        $clientInitials = implode(" ", $clientInitials);
+        $templateProcessor = new TemplateProcessor('word-template/document.docx');
+        $templateProcessor->setValue('id', $request->id);
+        $templateProcessor->setValue('day', Carbon::parse($request->updated_at)->day);
+        $templateProcessor->setValue('month', $month);
+        $templateProcessor->setValue('year', Carbon::parse($request->updated_at)->year);
+        $templateProcessor->setValue('client', $request->user->name);
+        $templateProcessor->setValue('clientInitials', $clientInitials);
+        $templateProcessor->setValue('totalSum', $sumToPay);
+        $templateProcessor->setValue('totalSumInText', $totalSumInText);
+        $templateProcessor->setValue('totalNDS', ($sumToPay*0.2));
+        $filename = 'Акт №' . (string)$request->id;
+        $templateProcessor->saveAs($filename . '.docx');
+        return response()->download($filename . '.docx')->deleteFileAfterSend();
     }
 
     public function update(Request $request, Repair $repair)

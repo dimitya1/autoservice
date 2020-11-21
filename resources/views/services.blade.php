@@ -86,7 +86,7 @@
                             <div class="card border-info mb-3" style="max-width: 18rem;">
                                 <div class="card-header">{{ $service->category }}</div>
                                 <div class="card-body text-info">
-                                    <h5 class="card-title">{{ $service->price . ' грн' }}</h5>
+                                    <h5 class="card-title">{{ 'От ' . $service->price . ' грн' }}</h5>
                                     <p class="card-text">{{ $service->name }}</p>
                                 </div>
                             </div>

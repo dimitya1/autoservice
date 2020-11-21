@@ -14,7 +14,9 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
-        "pelmered/fake-car": "^1.4"
+        "pelmered/fake-car": "^1.4",
+        "phpoffice/phpword": "^0.17.0",
+      "ext-intl": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

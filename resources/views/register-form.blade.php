@@ -102,8 +102,7 @@
                 @enderror
                 <label for="password">Пароль</label>
                 <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-                <small id="passwordHelp" class="form-text text-muted">Пароль должен быть на английском языке, состоять минимум из 6 символов,
-                    содержать строчные и заглавные буквы и хотя бы 1 цифру.</small>
+                <small id="passwordHelp" class="form-text text-muted">Пароль состоять минимум из 6 символов</small>
             </div>
 
             <div class="form-group">

@@ -28,9 +28,6 @@ final class AuthController
                     'string',
                     'min:6',
                     'max:45',
-                    'regex:/[a-z]/',
-                    'regex:/[A-Z]/',
-                    'regex:/[0-9]/',
                 ],
             ]
         );
@@ -85,9 +82,6 @@ final class AuthController
                     'string',
                     'min:6',
                     'max:45',
-                    'regex:/[a-z]/',
-                    'regex:/[A-Z]/',
-                    'regex:/[0-9]/',
                 ],
                 'password_confirmation' => 'required|same:password',
             ]

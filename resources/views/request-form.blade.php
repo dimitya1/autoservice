@@ -24,7 +24,8 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('car.create') }}">Добавить автомобиль</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item active" href="{{ route('request.create') }}">Записаться на диагностику/ремонт</a>
+                        <a class="dropdown-item active" href="{{ route('request.create') }}">Записаться на
+                            диагностику/ремонт</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('repairs.index') }}">Работы по моим автомобилям</a>
                         <div class="dropdown-divider"></div>
@@ -49,7 +50,8 @@
 
     <div class="container" style="margin-bottom: 90px">
         @if(auth()->user() !== null && auth()->user()->is_admin === 1)
-            <a href="{{ route('admin.panel') }}" style="margin-top: 20px" class="btn btn-danger btn-lg btn-block">Административная панель</a>
+            <a href="{{ route('admin.panel') }}" style="margin-top: 20px" class="btn btn-danger btn-lg btn-block">Административная
+                панель</a>
         @endif
 
         <form method="post" action="{{ route('request.store') }}">
@@ -62,13 +64,23 @@
                     {{ $message }}
                 </div>
                 @enderror
-                <label class="my-1 mr-2" for="inlineFormCustomSelectPref"><h1 style="color: #191aff">Автомобиль</h1></label>
-                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="car">
-                    <option selected style="font-style: italic">Выберите автомобиль</option>
-                    @foreach($cars as $car)
-                        <option>{{ $car->make . ' ' . $car->model . ' ' . $car->year . '      ' . $car->vin }}</option>
-                    @endforeach
-                </select>
+                @if($cars->count() !== 1)
+                    <label class="my-1 mr-2" for="inlineFormCustomSelectPref"><h1 style="color: #191aff">Автомобиль</h1>
+                    </label>
+                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="car">
+                        <option selected style="font-style: italic">Выберите автомобиль</option>
+                        @foreach($cars as $car)
+                            <option>{{ $car->make . ' ' . $car->model . ' ' . $car->year . '      ' . $car->vin }}</option>
+                        @endforeach
+                    </select>
+                @else
+                    <div class="form-group">
+                        <label for="car"><h1 style="color: #191aff">Ваш автомобиль</h1></label>
+                        <input type="car" readonly="readonly" name="car" id="disabledTextInput" class="form-control"
+                               value="{{ $cars->first()->make . ' ' . $cars->first()->model . ' ' . $cars->first()->year . ' ' . $cars->first()->vin }}"
+                               placeholder="{{ $cars->first()->make . ' ' . $cars->first()->model . ' ' . $cars->first()->year . ' ' . $cars->first()->vin}}">
+                    </div>
+                @endif
             </div>
 
             <div class="form-group">
@@ -81,8 +93,10 @@
                     @foreach($categories as $category)
                         <h1>{{ $category }}</h1>
                         @foreach( \App\Models\Service::where('category', '=', $category)->get() as $service)
-                            <input class="form-check-input" type="checkbox" value="{{ $service->name }}" id="invalidCheck2" name="{{ $service->name }}">
-                            <p><label class="form-check-label" for="invalidCheck2">{{ $service->name . ' ' . $service->price . 'грн'}}</label></p>
+                            <input class="form-check-input" type="checkbox" value="{{ $service->name }}"
+                                   id="invalidCheck2" name="{{ $service->name }}">
+                            <p><label class="form-check-label" for="invalidCheck2">{{ $service->name }}
+                                    <b>{{ ' (от ' . $service->price . ' грн)'}}</b></label></p>
                         @endforeach
                     @endforeach
                 </div>
@@ -90,7 +104,8 @@
             <br>
             <br>
             <div class="form-group">
-                <h4><label for="exampleFormControlTextarea1">Опишите, пожалуйста, работы по автомобилю, если в этом есть необходимость</label></h4>
+                <h4><label for="exampleFormControlTextarea1">Опишите, пожалуйста, работы по автомобилю, если в этом есть
+                        необходимость</label></h4>
                 <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
 

@@ -40,9 +40,6 @@ final class ProfileController
                     'string',
                     'min:6',
                     'max:45',
-                    'regex:/[a-z]/',
-                    'regex:/[A-Z]/',
-                    'regex:/[0-9]/',
                 ],
             ]
         );

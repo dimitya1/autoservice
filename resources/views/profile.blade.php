@@ -87,7 +87,7 @@
                     <p class="card-text">Вы пока не добавили свой автомобиль.</p>
                 @endif
 
-                @foreach($authUser->cars as $car)
+                @foreach($authUser->cars->where('deleted_at', NULL) as $car)
                     <p class="card-text"> &#9899{{ $car->make . ' ' . $car->model . ' ' . $car->year }}</p>
                 @endforeach
                 <a href="{{ route('car.create') }}" class="btn btn-success" style="margin-bottom: 15px">Добавить
@@ -109,8 +109,8 @@
                 @endif
 
                 @if($repairsCount > 0)
-                    <a href="{{ route('repairs.index') }}" class="btn btn-info" style="margin-bottom: 25px">Подробнее о
-                        работах по автомобилю</a>
+                    <a href="{{ route('repairs.index') }}" class="btn btn-info btn-lg" style="margin-bottom: 25px">Подробнее о
+                        работах</a>
                 @endif
                 @if($authUser->cars->count() > 0)
                     <p><a href="{{ route('request.create') }}" class="btn-lg btn-secondary">Создать заявку</a></p>
