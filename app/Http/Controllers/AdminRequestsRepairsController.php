@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 use NumberFormatter;
 use PhpOffice\PhpWord\Element\TextRun;
 use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\SimpleType\TblWidth;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 final class AdminRequestsRepairsController
@@ -85,10 +86,35 @@ final class AdminRequestsRepairsController
             $month .= 'а';
         else $month = Str::limit($month, Str::length($month)-1, 'я');
 
+        $arr = $request->services()->get()->toArray();
+
         $clientInitials = explode(" ", $request->user->name);
         $clientInitials[1] = Str::limit($clientInitials[1], 1, '.');
         $clientInitials[2] = Str::limit($clientInitials[2], 1, '.');
         $clientInitials = implode(" ", $clientInitials);
+
+        $tableDoc = new PhpWord();
+        $section = $tableDoc->addSection();
+        $table = $section->addTable(array('borderSize' => 12, 'borderColor' => 'black', 'width' => 10000, 'unit' => TblWidth::TWIP));
+
+        $index = 0;
+
+        $table->addRow();
+        $table->addCell(300)->addText('№', array('bold' => true));
+        $table->addCell(2800)->addText('Наименование робот, услуг', array('bold' => true));
+        $table->addCell(400)->addText('Цена', array('bold' => true));
+        $table->addCell(400)->addText('НДС', array('bold' => true));
+        $table->addCell(400)->addText('Сумма с НДС', array('bold' => true));
+        foreach ($requestServices as $requestService) {
+            $index++;
+            $table->addRow();
+            $table->addCell(300)->addText($index);
+            $table->addCell(1800)->addText($requestService->name);
+            $table->addCell(400)->addText(($requestService->price * 0.8));
+            $table->addCell(400)->addText(($requestService->price * 0.2));
+            $table->addCell(400)->addText($requestService->price);
+        }
+
         $templateProcessor = new TemplateProcessor('word-template/document.docx');
         $templateProcessor->setValue('id', $request->id);
         $templateProcessor->setValue('day', Carbon::parse($request->updated_at)->day);
@@ -99,6 +125,7 @@ final class AdminRequestsRepairsController
         $templateProcessor->setValue('totalSum', $sumToPay);
         $templateProcessor->setValue('totalSumInText', $totalSumInText);
         $templateProcessor->setValue('totalNDS', ($sumToPay*0.2));
+        $templateProcessor->setComplexBlock('table', $table);
         $filename = 'Акт №' . (string)$request->id;
         $templateProcessor->saveAs($filename . '.docx');
         return response()->download($filename . '.docx')->deleteFileAfterSend();

@@ -41,7 +41,7 @@ final class ServiceController
 
         $categories = Service::all()->pluck('category')->unique()->toArray();
 
-        return view('request-form', ['cars' => $cars, 'categories' => $categories ]);
+        return view('request-form', ['cars' => $cars, 'categories' => $categories]);
     }
 
     public function store()
@@ -86,7 +86,11 @@ final class ServiceController
 
         $mechanicsWithoutWork = Mechanic::all()->where('status', 0);
 
-        $randomMechanicWithoutWork = $mechanicsWithoutWork->random();
+        if ($mechanicsWithoutWork->count() !== 0) {
+            $randomMechanicWithoutWork = $mechanicsWithoutWork->random();
+        } else {
+            $randomMechanicWithoutWork = Mechanic::all()->random();
+        }
 
         $requestServices = Service::whereHas('requests', function ($q) use ($request) {
             $q->where('request_id', '=', $request->id);
@@ -99,7 +103,7 @@ final class ServiceController
             $repair = new Repair();
             $repair->request_id = $request->id;
             $repair->service_id = $requestService->id;
-            $repair->mechanic_id = $randomMechanicWithoutWork->id ?? Mechanic::all()->pluck('id')->random();
+            $repair->mechanic_id = $randomMechanicWithoutWork->id;
             $repair->status = 0;
             $repair->save();
         }
@@ -109,7 +113,7 @@ final class ServiceController
 
         return redirect()->route('profile')->with(
             ['created request' => 'Заявка успешно добавлена. Приезжайте к нам с ' .
-                Carbon::parse($request->date)->format("d.m с h:i") . ' Примерная стоимость услуг - от ' .  $sumToPay . 'грн.']);
+                Carbon::parse($request->date)->format("d.m с h:i") . ' Примерная стоимость услуг - от ' . $sumToPay . 'грн.']);
     }
 }
 
