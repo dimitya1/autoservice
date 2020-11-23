@@ -203,7 +203,8 @@ class DatabaseSeeder extends Seeder
                         if ($request->status === 1) {
                             Repair::factory()->create(
                                 ['request_id' => $request->id, 'mechanic_id' => $randMechanicId,
-                                    'service_id' => $serviceId, 'status' => 1]
+                                    'service_id' => $serviceId, 'result' => Str::random(15),
+                                    'payment' => (Service::find($serviceId)->price + round(rand(0, 300), -2)), 'status' => 1]
                             );
                         } elseif ($i === 0) {
                             Repair::factory()->create(
@@ -214,7 +215,9 @@ class DatabaseSeeder extends Seeder
                             $rand = rand(0, 1);
                             Repair::factory()->create(
                                 ['request_id' => $request->id, 'mechanic_id' => $randMechanicId,
-                                    'service_id' => $serviceId, 'result' => $rand ? Str::random(15) : null, 'status' => $rand]
+                                    'service_id' => $serviceId,
+                                    'payment' => $rand ? (Service::find($serviceId)->price + round(rand(0, 300), -2)) : null,
+                                    'result' => $rand ? Str::random(15) : null, 'status' => $rand]
                             );
                         }
                     }

@@ -15,9 +15,9 @@ final class ServiceController
 {
     public function index($category = null)
     {
-        $categories = DB::table('services')->select('category')->distinct()->get();
+        $categories = DB::table('services')->where('deleted_at', null)->select('category')->distinct()->get();
         $categoryNormal = str_replace('_', ' ', $category);
-        $services = DB::table('services')->where('category', '=', $categoryNormal)->get();
+        $services = Service::where('category', '=', $categoryNormal)->get();
 
         $categoriesWithButtons = array();
         foreach ($categories as $category) {

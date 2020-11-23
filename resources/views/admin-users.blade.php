@@ -7,6 +7,9 @@
         <a href="{{ route('admin.panel') }}" style="margin-top: 20px" class="btn btn-danger btn-lg btn-block">Административная
             панель</a>
     </div>
+    <div class="container">
+        <a href="{{ route('home') }}" style="margin-top: 15px" class="btn btn-info btn-lg btn-block">Пользовательская версия сайта</a>
+    </div>
     <br>
 
     <div class="container" style="margin-left: auto; margin-right: auto">

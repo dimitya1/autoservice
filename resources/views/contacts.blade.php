@@ -48,7 +48,8 @@
 
     <div class="container">
         @if(auth()->user() !== null && auth()->user()->is_admin === 1)
-            <a href="{{ route('admin.panel') }}" style="margin-top: 20px" class="btn btn-danger btn-lg btn-block">Административная панель</a>
+            <a href="{{ route('admin.panel') }}" style="margin-top: 20px" class="btn btn-danger btn-lg btn-block">Административная
+                панель</a>
         @endif
         <h2 style="text-align: center; margin-bottom: 30px">Контакты</h2>
 
@@ -74,6 +75,7 @@
             <img src="https://img.icons8.com/ios-filled/50/000000/telegram-app.png"/></a>
 
         <h3 style="text-align: center; margin-bottom: 30px">Как к нам добраться</h3>
+        <h5>Мы находимся в городе Одесса по адресу пр-т Шевченка, 1</h5>
         <!--Google map-->
         <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 100px; width: 900px">
             <iframe

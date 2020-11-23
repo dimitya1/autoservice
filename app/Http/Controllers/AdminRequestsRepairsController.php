@@ -134,10 +134,14 @@ final class AdminRequestsRepairsController
     public function update(Request $request, Repair $repair)
     {
         $repair->status = 1;
+        if (request()->get('payment')) {
+            $repair->payment = (int) request()->get('payment');
+        } else $repair->payment = $repair->service->price;
         if (request()->get('result')) {
             $repair->result = request()->get('result');
         }
         $repair->save();
+
         $statusFlag = false;
         foreach ($repair->request->repairs as $repair) {
             if ($repair->status === 0) {

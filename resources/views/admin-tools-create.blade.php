@@ -4,48 +4,13 @@
 
 @section('content')
     <div class="container">
-        <br>
-        <ul class="nav nav-tabs nav-fill">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('home') }}">Главная</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('services.index') }}">Услуги</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('contacts') }}">Контакты</a>
-            </li>
-            <li class="nav-item dropdown">
-                @auth
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                       aria-haspopup="true" aria-expanded="false">{{ auth()->user()->name }}</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ route('profile') }}">Мой профиль</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('car.create') }}">Добавить автомобиль</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('request.create') }}">Записаться на диагностику/ремонт</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('repairs.index') }}">Работы по моим автомобилям</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('logout') }}">Выйти</a>
-                    </div>
-                @endauth
-                @guest
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                       aria-haspopup="true" aria-expanded="false">Личный кабинет</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ route('login') }}">Вход</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('register') }}">Регистрация</a>
-                    </div>
-                @endguest
-            </li>
-        </ul>
-        <br>
+        <a href="{{ route('admin.panel') }}" style="margin-top: 20px" class="btn btn-danger btn-lg btn-block">Административная
+            панель</a>
+    </div>
+    <div class="container">
+        <a href="{{ route('home') }}" style="margin-top: 15px" class="btn btn-info btn-lg btn-block">Пользовательская версия сайта</a>
     </div>
     <br>
-
 
     <div class="container" style="margin-bottom: 90px">
 

@@ -14,7 +14,7 @@ final class AdminServicesController
 {
     public function index($category = null)
     {
-        $categories = DB::table('services')->select('category')->distinct()->get();
+        $categories = DB::table('services')->where('deleted_at', null)->select('category')->distinct()->get();
         $categoryNormal = str_replace('_', ' ', $category);
         $services = Service::where('category', '=', $categoryNormal)->get();
 
@@ -42,7 +42,7 @@ final class AdminServicesController
             [
                 'name2' => 'required|min:3|max:55',
                 'category' => 'required|min:2|max:55',
-                'price' => 'required|digits_between:3,6',
+                'price' => 'required|digits_between:2,6',
             ]
         );
 
@@ -84,7 +84,7 @@ final class AdminServicesController
             [
                 'name2' => 'required|min:3|max:55',
                 'category' => 'required|min:2|max:55',
-                'price' => 'required|digits_between:3,6',
+                'price' => 'required|digits_between:2,6',
             ]
         );
 

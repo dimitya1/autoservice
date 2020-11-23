@@ -19,6 +19,7 @@ class CreateRepairsTable extends Migration
             $table->foreignId('service_id');
             $table->foreignId('mechanic_id');
             $table->tinyInteger('status')->default(0);
+            $table->integer('payment')->nullable();
             $table->text('result')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -54,6 +54,13 @@
                 панель</a>
         @endif
 
+        @error('no requests')
+        <br>
+        <div class="alert alert-warning" role="alert">
+            {{ $message }}
+        </div>
+        @enderror
+
         <form method="post" action="{{ route('request.store') }}">
             @csrf
 
