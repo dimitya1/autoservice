@@ -68,17 +68,11 @@ final class AdminRequestsRepairsController
     }
 
     public function document(\App\Models\Request $request) {
-        $requestServices = Service::whereHas('requests', function ($q) use ($request) {
-            $q->where('request_id', '=', $request->id);
-        })->get();
-
         $sumToPay = 0;
-
-        foreach ($requestServices as $requestService) {
-            $sumToPay += $requestService->price;
+        foreach ($request->repairs as $requestRepair) {
+            $sumToPay += $requestRepair->payment;
         }
         $f = new \NumberFormatter('ru_RU', NumberFormatter::SPELLOUT);
-
         $totalSumInText = $f->format($sumToPay);
 
         $month = Carbon::parse($request->updated_at)->translatedFormat('F');
@@ -93,6 +87,10 @@ final class AdminRequestsRepairsController
         $clientInitials[2] = Str::limit($clientInitials[2], 1, '.');
         $clientInitials = implode(" ", $clientInitials);
 
+        $requestServices = Service::whereHas('requests', function ($q) use ($request) {
+            $q->where('request_id', '=', $request->id);
+        })->get();
+
         $tableDoc = new PhpWord();
         $section = $tableDoc->addSection();
         $table = $section->addTable(array('borderSize' => 12, 'borderColor' => 'black', 'width' => 10000, 'unit' => TblWidth::TWIP));
@@ -105,14 +103,14 @@ final class AdminRequestsRepairsController
         $table->addCell(400)->addText('Цена', array('bold' => true));
         $table->addCell(400)->addText('НДС', array('bold' => true));
         $table->addCell(400)->addText('Сумма с НДС', array('bold' => true));
-        foreach ($requestServices as $requestService) {
+        foreach ($request->repairs as $requestRepair) {
             $index++;
             $table->addRow();
             $table->addCell(300)->addText($index);
-            $table->addCell(1800)->addText($requestService->name);
-            $table->addCell(400)->addText(($requestService->price * 0.8));
-            $table->addCell(400)->addText(($requestService->price * 0.2));
-            $table->addCell(400)->addText($requestService->price);
+            $table->addCell(1800)->addText($requestRepair->service->name);
+            $table->addCell(400)->addText(($requestRepair->payment * 0.8));
+            $table->addCell(400)->addText(($requestRepair->payment * 0.2));
+            $table->addCell(400)->addText($requestRepair->payment);
         }
 
         $templateProcessor = new TemplateProcessor('word-template/document.docx');

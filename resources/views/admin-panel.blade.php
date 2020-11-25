@@ -13,6 +13,7 @@
 
     <div class="container" style="margin-bottom: 90px">
         <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="{{ route('admin.profit.index') }}" class="btn btn-dark btn-lg">Прибыль и аналитика</a></li>
             <li class="list-group-item"><a href="{{ route('admin.requests.index') }}" class="btn btn-dark btn-lg">Заявки клиентов и работы по ним</a></li>
             <li class="list-group-item"><a href="{{ route('admin.services.index') }}" class="btn btn-dark btn-lg">Услуги компании</a></li>
             <li class="list-group-item"><a href="{{ route('admin.users.index') }}" class="btn btn-dark btn-lg">Клиенты</a></li>

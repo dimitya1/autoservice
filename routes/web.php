@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminCarsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminMechanicsController;
+use App\Http\Controllers\AdminProfitController;
 use App\Http\Controllers\AdminRequestsRepairsController;
 use App\Http\Controllers\AdminServicesController;
 use App\Http\Controllers\AdminToolsController;
@@ -129,17 +130,11 @@ Route::middleware('auth')->group(function () {
 
             Route::get('requests/word-export/{request}', [AdminRequestsRepairsController::class, 'document'])->name('document');
 
-//        Route::get('tools/create', [AdminToolsController::class, 'create'])->name('admin.tools.create');
-//
-//        Route::post('tools', [AdminToolsController::class, 'store'])->name('admin.tools.store');
-//
-//        Route::get('tools/{tool}', [AdminToolsController::class, 'show'])->name('admin.tools.show');
-//
             Route::get('repairs/{repair}/edit', [AdminRequestsRepairsController::class, 'edit'])->name('admin.repairs.edit');
-//
+
             Route::patch('repairs/{repair}', [AdminRequestsRepairsController::class, 'update'])->name('admin.repairs.update');
-//
-//        Route::delete('tools/{tool}', [AdminToolsController::class, 'destroy'])->name('admin.tools.destroy');
+
+            Route::get('profit', [AdminProfitController::class, 'index'])->name('admin.profit.index');
         });
     });
 });
