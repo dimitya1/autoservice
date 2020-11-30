@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mechanic;
 use App\Models\Tool;
 use App\Models\Service;
 use Carbon\Carbon;
@@ -18,6 +19,17 @@ final class AdminServicesController
         $categoryNormal = str_replace('_', ' ', $category);
         $services = Service::where('category', '=', $categoryNormal)->get();
 
+        if ($category == null) {
+            $notUsedServices = DB::table('services')
+                ->whereNotIn('id', DB::table('request_service')->groupBy('service_id')->pluck('service_id'))
+                ->get();
+        } else {
+            $notUsedServices = DB::table('services')
+                ->where('category', '=', $categoryNormal)
+                ->whereNotIn('id', DB::table('request_service')->groupBy('service_id')->pluck('service_id'))
+                ->get();
+        }
+
         $categoriesWithButtons = array();
         foreach ($categories as $category) {
             if ($category->category == $categoryNormal) {
@@ -27,7 +39,17 @@ final class AdminServicesController
             }
         }
 
-        return view('admin-services', ['services' => $services, 'categoriesWithButtons' => $categoriesWithButtons]);
+        $experiencedMechanic = DB::select("SELECT mechanic_id, COUNT(mechanic_id) as 'count' FROM repairs JOIN (SELECT * FROM services WHERE category = '$categoryNormal') as `s`
+            ON repairs.service_id = s.id
+                GROUP BY mechanic_id, category order by count DESC LIMIT 1");
+
+        if (count($experiencedMechanic) === 1) {
+            $mechanicModel = Mechanic::find($experiencedMechanic[0]->mechanic_id);
+        }
+
+        return view('admin-services', ['services' => $services, 'categoriesWithButtons' => $categoriesWithButtons,
+            'experiencedMechanic' => $experiencedMechanic, 'mechanicModel' => $mechanicModel ?? null,
+            'notUsedServices' => $notUsedServices ?? null]);
     }
 
     public function create()
